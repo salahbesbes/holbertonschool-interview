@@ -2,19 +2,6 @@
 """  no module imported  """
 
 
-def get_all_keys(node):
-    """ get all keys of a node
-    Args:
-        boxes: list nodes
-    return: list of keys
-    """
-    all_keys = []
-    for key in node:
-        all_keys.append(key)
-
-    return all_keys
-
-
 def recursion(boxes, keys, opened):
     # print('keys => {}   opened => {}'.format(keys, opened))
     if len(boxes) == len(opened):
@@ -39,9 +26,9 @@ def canUnlockAll(boxes):
         boxes: list nodes
     return: bool
     """
+    if not boxes:
+        return False
     if len(boxes) == 0:
-        return True
-    if boxes == None:
         return False
 
     return recursion(boxes, set(boxes[0]), set([0]))
