@@ -15,26 +15,29 @@ def get_all_keys(node):
     return all_keys
 
 
+def recursion(boxes, keys, opened):
+    # print('keys => {}   opened => {}'.format(keys, opened))
+    if len(boxes) == len(opened):
+        return True
+    elif len(keys) == 0:
+        return False
+    elif opened.issuperset(keys):
+        return False
+    else:
+        next_keys = set()
+        for key in keys:
+            opened.add(key)
+            next_keys.update(boxes[key])
+        return recursion(boxes, next_keys, opened)
+
+
 def canUnlockAll(boxes):
     """ resolve the problem
     Args:
         boxes: list nodes
     return: bool
     """
-    storage = set()
     if not boxes:
         return False
-    for i in range(0, len(boxes)):
-        try:
-            array_keys = get_all_keys(boxes[i])
-            storage.update(array_keys)
-            if array_keys == [] and \
-                    (i + 1) not in list(storage) \
-                    and i != len(boxes) - 1:
-                return False
-            if len(storage) == 0 and i != len(boxes) - 1:
-                return False
 
-        except Exception:
-            return False
-    return True
+    return recursion(boxes, set(boxes[0]), set([0]))
