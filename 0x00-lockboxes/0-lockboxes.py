@@ -26,6 +26,8 @@ def recursion(boxes, keys, opened):
     else:
         next_keys = set()
         for key in keys:
+            if key >= len(boxes):
+                continue
             opened.add(key)
             next_keys.update(boxes[key])
         return recursion(boxes, next_keys, opened)
