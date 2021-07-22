@@ -1,8 +1,13 @@
 #!/usr/bin/python3
+"""  no module imported  """
 
 
 def get_all_keys(node):
-    """ get all key of a node """
+    """ get all keys of a node
+    Args:
+        boxes: list nodes
+    return: list of keys
+    """
     all_keys = []
     for key in node:
         all_keys.append(key)
@@ -11,7 +16,11 @@ def get_all_keys(node):
 
 
 def canUnlockAll(boxes):
-    """ resolve the problem """
+    """ resolve the problem
+    Args:
+        boxes: list nodes
+    return: bool
+    """
     storage = set()
 
     for i in range(0, len(boxes)):
