@@ -22,7 +22,8 @@ def canUnlockAll(boxes):
     return: bool
     """
     storage = set()
-
+    if not boxes:
+        return False
     for i in range(0, len(boxes)):
         try:
             array_keys = get_all_keys(boxes[i])
