@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 
 def get_all_keys(node):
+    """ get all key of a node """
     all_keys = []
     for key in node:
         all_keys.append(key)
@@ -10,6 +11,7 @@ def get_all_keys(node):
 
 
 def canUnlockAll(boxes):
+    """ resolve the problem """
     storage = set()
 
     for i in range(0, len(boxes)):
