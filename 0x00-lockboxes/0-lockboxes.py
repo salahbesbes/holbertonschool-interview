@@ -2,9 +2,6 @@
 """  no module imported  """
 
 
-from typing import Text
-
-
 def get_all_keys(node):
     """ get all keys of a node
     Args:
@@ -16,9 +13,6 @@ def get_all_keys(node):
         all_keys.append(key)
 
     return all_keys
-
-
-def get_max(arr):
 
 
 def canUnlockAll(boxes):
