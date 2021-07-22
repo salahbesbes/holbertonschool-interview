@@ -29,7 +29,7 @@ def canUnlockAll(boxes):
             array_keys = get_all_keys(boxes[i])
             if array_keys == [] and max(storage) <= i and i != len(boxes) - 1:
                 return False
-            if storage == set():
+            if storage == set() and i != len(boxes) - 1:
                 return False
             storage.update(array_keys)
         except Exception as error:
