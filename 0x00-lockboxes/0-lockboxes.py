@@ -33,6 +33,6 @@ def canUnlockAll(boxes):
             if len(storage) == 0 and i != len(boxes) - 1:
                 return False
 
-        except Exception as error:
+        except Exception:
             return False
     return True
