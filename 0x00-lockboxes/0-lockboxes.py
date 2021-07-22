@@ -28,7 +28,6 @@ def canUnlockAll(boxes):
         try:
             array_keys = get_all_keys(boxes[i])
             storage.update(array_keys)
-            print('max(storage) = {}   i + 1 = {} '.format(max(storage), i + 1))
             if array_keys == [] and \
                     (i + 1) not in list(storage) \
                     and i != len(boxes) - 1:
