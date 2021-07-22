@@ -30,5 +30,5 @@ def canUnlockAll(boxes):
                 return False
             storage.update(array_keys)
         except Exception as error:
-            print("error", error)
+            return False
     return True
