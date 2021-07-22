@@ -41,5 +41,7 @@ def canUnlockAll(boxes):
     """
     if not boxes:
         return False
+    if len(boxes) == 0:
+        return True
 
     return recursion(boxes, set(boxes[0]), set([0]))
