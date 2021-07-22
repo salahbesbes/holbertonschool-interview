@@ -1,5 +1,4 @@
-
-boxes = [[1], [2], [3], [4], []]
+#!/usr/bin/python
 
 
 def get_all_keys(node):
