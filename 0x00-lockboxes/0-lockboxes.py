@@ -2,6 +2,9 @@
 """  no module imported  """
 
 
+from typing import Text
+
+
 def get_all_keys(node):
     """ get all keys of a node
     Args:
@@ -13,6 +16,9 @@ def get_all_keys(node):
         all_keys.append(key)
 
     return all_keys
+
+
+def get_max(arr):
 
 
 def canUnlockAll(boxes):
@@ -27,11 +33,12 @@ def canUnlockAll(boxes):
     for i in range(0, len(boxes)):
         try:
             array_keys = get_all_keys(boxes[i])
+            storage.update(array_keys)
             if array_keys == [] and max(storage) <= i and i != len(boxes) - 1:
                 return False
-            if storage == set() and i != len(boxes) - 1:
+            if len(storage) == 0 and i != len(boxes) - 1:
                 return False
-            storage.update(array_keys)
+
         except Exception as error:
             return False
     return True
