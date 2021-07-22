@@ -39,9 +39,9 @@ def canUnlockAll(boxes):
         boxes: list nodes
     return: bool
     """
-    if not boxes:
-        return False
     if len(boxes) == 0:
         return True
+    if not boxes:
+        return False
 
     return recursion(boxes, set(boxes[0]), set([0]))
