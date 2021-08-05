@@ -52,7 +52,6 @@ heap_t *sort_node(heap_t *parent, heap_t *new, int value)
 heap_t *insert_node(heap_t *parent, int value)
 {
 	heap_t *new, *sibling_node;
-	int nodes_empty = 0;
 
 	if (parent->left == NULL)
 	{
