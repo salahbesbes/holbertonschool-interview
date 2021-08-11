@@ -50,7 +50,7 @@ def minOperations(n):
     """  fewest number of operations needed to result in exactly n * "H" """
     default_value = 1
 
-    if not isinstance(n, int):
+    if not type(n) is not int:
         return 0
 
     if n <= 0:
