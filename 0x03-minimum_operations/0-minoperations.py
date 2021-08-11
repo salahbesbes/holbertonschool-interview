@@ -49,11 +49,8 @@ def _recursive(value, n, count, copied_val):
 def minOperations(n):
     """  fewest number of operations needed to result in exactly n * "H" """
     default_value = 1
-
-    if not type(n) is not int:
+    if type(n) is not int or n < 2:
         return 0
-
     if n <= 0:
         return 0
-
     return _recursive(default_value, n, 0, 0)
