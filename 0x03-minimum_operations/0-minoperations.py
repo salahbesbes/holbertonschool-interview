@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-import math
 """ this code wont work for big numbers because of the limitation
 of recursive depth deep in PYTHON
 i have tested with C# and it worked for all cases that didnt with python"""
+import math
 
 
 def copy_all(value, count, n):
