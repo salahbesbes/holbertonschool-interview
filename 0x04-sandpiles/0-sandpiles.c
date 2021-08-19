@@ -1,6 +1,5 @@
 #include "sandpiles.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 /**
  * sandpiles_sum - each iteration to calculate the sum of 2 sandpiles
