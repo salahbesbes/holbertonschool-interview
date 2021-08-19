@@ -131,10 +131,12 @@ void stretch(int gr[3][3])
 			}
 		}
 	}
-	printf("=\n");
-	print_grid(gr);
 	if (check_before_stretch(gr))
+	{
+		printf("=\n");
+		print_grid(gr);
 		stretch(gr);
+	}
 }
 
 /**
@@ -152,6 +154,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 
 	if (need_stretch)
 	{
+		printf("=\n");
 		print_grid(grid1);
 		stretch(grid1);
 	}
