@@ -8,9 +8,11 @@
  */
 void init_corresponded_grid(int corres[3][3])
 {
-	for (int i = 0; i < 3; i++)
+	int i, j;
+
+	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
 
 			corres[i][j] = 0;
@@ -27,11 +29,11 @@ void init_corresponded_grid(int corres[3][3])
  */
 int calculate_sum(int grid1[3][3], int grid2[3][3])
 {
-	int recalculate_sum = 0;
+	int recalculate_sum = 0, i, j;
 
-	for (int i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
 			grid1[i][j] += grid2[i][j];
 			if (grid1[i][j] > 3 && recalculate_sum == 0)
@@ -49,9 +51,11 @@ int calculate_sum(int grid1[3][3], int grid2[3][3])
 
 int check_before_stretch(int gr[3][3])
 {
-	for (int i = 0; i < 3; i++)
+	int i, j;
+
+	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
 			if (gr[i][j] > 3)
 				return (1);
@@ -71,12 +75,12 @@ int check_before_stretch(int gr[3][3])
  */
 void stretch(int gr[3][3])
 {
-	int correspondance[3][3];
+	int correspondance[3][3], i, j, line, column;
 
 	init_corresponded_grid(correspondance);
-	for (int i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
 			if (gr[i][j] > 3)
 			{
@@ -87,9 +91,9 @@ void stretch(int gr[3][3])
 			}
 		}
 	}
-	for (int line = 0; line < 3; line++)
+	for (line = 0; line < 3; line++)
 	{
-		for (int column = 0; column < 3; column++)
+		for (column = 0; column < 3; column++)
 		{
 			if (correspondance[line][column] == 1)
 			{
