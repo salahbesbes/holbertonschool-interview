@@ -125,8 +125,8 @@ void stretch(int gr[3][3])
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int need_stretch;
-	int recalculate_sum = 0, i, j;
+	int need_stretch = 0;
+	int i, j;
 
 	/* calculate the sum of the 2 grids */
 	for (i = 0; i < 3; i++)
@@ -134,8 +134,8 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		for (j = 0; j < 3; j++)
 		{
 			grid1[i][j] += grid2[i][j];
-			if (grid1[i][j] > 3 && recalculate_sum == 0)
-				recalculate_sum = 1;
+			if (grid1[i][j] > 3 && need_stretch == 0)
+				need_stretch = 1;
 		}
 	}
 
