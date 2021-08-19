@@ -150,8 +150,9 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 
 	need_stretch = calculate_sum(grid1, grid2);
 
-	print_grid(grid1);
-
 	if (need_stretch)
+	{
+		print_grid(grid1);
 		stretch(grid1);
+	}
 }
