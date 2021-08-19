@@ -41,29 +41,6 @@ void init_corresponded_grid(int corres[3][3])
 		}
 	}
 }
-/**
- * calculate_sum - calculate the sum of the 2 grids and return 1 if the result
- * contain one box > 3
- * @grid1: first grid 3 by 3
- * @grid2: sedond 3by 3 grid
- *
- * Return: 1 if we need to streatch else 0
- */
-int calculate_sum(int grid1[3][3], int grid2[3][3])
-{
-	int recalculate_sum = 0, i, j;
-
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			grid1[i][j] += grid2[i][j];
-			if (grid1[i][j] > 3 && recalculate_sum == 0)
-				recalculate_sum = 1;
-		}
-	}
-	return (recalculate_sum);
-}
 
 /**
  * check_before_stretch - check if the grid needs an other streach
@@ -149,8 +126,18 @@ void stretch(int gr[3][3])
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
 	int need_stretch;
+	int recalculate_sum = 0, i, j;
 
-	need_stretch = calculate_sum(grid1, grid2);
+	/* calculate the sum of the 2 grids */
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			grid1[i][j] += grid2[i][j];
+			if (grid1[i][j] > 3 && recalculate_sum == 0)
+				recalculate_sum = 1;
+		}
+	}
 
 	if (need_stretch)
 	{
