@@ -58,7 +58,7 @@ int is_palindrome(listint_t **head)
 		return (1);
 
 	if (*head == NULL)
-		return (1);
+		return (0);
 	list_length = get_list_length(head);
 	if (list_length == 1)
 		return (1);
