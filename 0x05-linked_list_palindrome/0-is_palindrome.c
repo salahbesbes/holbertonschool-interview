@@ -29,7 +29,7 @@ int get_list_length(listint_t **head)
  */
 listint_t *inverse_list(listint_t *head)
 {
-	listint_t *original_list, *rev_list, *copy_current_node, *next_rev_node;
+	listint_t *original_list, *rev_list, *copy_current_node;
 
 	original_list = head;
 	original_list = original_list->next;
