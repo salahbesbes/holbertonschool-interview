@@ -56,7 +56,7 @@ int is_palindrome(listint_t **head)
 {
 	listint_t *original_list, *rev_list;
 	int mid_length, length_list, count, odd_length;
-
+	/* linked list empty or contain single node return 1 */
 	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return (1);
 	length_list = get_list_length(head);
@@ -77,6 +77,7 @@ int is_palindrome(listint_t **head)
 
 	rev_list = inverse_list(*head);
 	original_list = *head;
+
 	while (original_list)
 	{
 		if (rev_list->n != original_list->n)
