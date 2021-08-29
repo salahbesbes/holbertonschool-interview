@@ -89,12 +89,32 @@ int palind_recursive_way(listint_t *list, int length)
  */
 int is_palindrome(listint_t **head)
 {
-	int length_list;
+	listint_t *original_list, *rev_half_list, *pointer_half_list;
+	int mid_length, length_list, count;
 
 	/* linked list empty or contain single node return 1 */
 	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return (1);
 	length_list = get_list_length(head);
 
-	return (palind_recursive_way(*head, length_list));
+	mid_length = length_list / 2;
+	original_list = *head;
+	count = 0;
+	while (count < mid_length)
+	{
+		original_list = original_list->next;
+		count++;
+	}
+	pointer_half_list = original_list->next;
+	original_list = *head;
+	rev_half_list = inverse_list(pointer_half_list);
+	while (rev_half_list)
+	{
+		if (rev_half_list->n != original_list->n)
+			return (0);
+		original_list = original_list->next;
+		rev_half_list = rev_half_list->next;
+	}
+
+	return (0);
 }
