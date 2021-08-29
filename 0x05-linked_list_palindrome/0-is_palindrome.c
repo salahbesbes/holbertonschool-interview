@@ -96,6 +96,8 @@ int is_palindrome(listint_t **head)
 	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return (1);
 	length_list = get_list_length(head);
+	if (length_list == 2)
+		return ((*head)->n == (*head)->next->n);
 
 	mid_length = length_list / 2;
 	original_list = *head;
@@ -116,5 +118,5 @@ int is_palindrome(listint_t **head)
 		rev_half_list = rev_half_list->next;
 	}
 
-	return (0);
+	return (1);
 }
