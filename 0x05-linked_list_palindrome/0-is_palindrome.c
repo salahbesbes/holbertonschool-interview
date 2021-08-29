@@ -46,24 +46,7 @@ listint_t *inverse_list(listint_t *head)
 	}
 	return (rev_list);
 }
-/**
- * is_palindrome - check if the linked list is palindromique
- * @head: header node
- *
- * Return: 1 if palindromique else 0
- */
-int is_palindrome(listint_t **head)
-{
-	listint_t *original_list, *rev_list;
-	int mid_length, length_list, count, odd_length;
 
-	/* linked list empty or contain single node return 1 */
-	if (head == NULL || *head == NULL || (*head)->next == NULL)
-		return (1);
-	length_list = get_list_length(head);
-
-	return (palind(*head, length_list));
-}
 /**
  * palind_recursive_way - check first node and last node recursively
  * @list: head single list
@@ -93,7 +76,25 @@ int palind_recursive_way(listint_t *list, int length)
 	if (list->n == last_node->next->n)
 	{
 		last_node->next = NULL;
-		return (palind(newList, length - 2));
+		return (palind_recursive_way(newList, length - 2));
 	}
 	return (0);
+}
+
+/**
+ * is_palindrome - check if the linked list is palindromique
+ * @head: header node
+ *
+ * Return: 1 if palindromique else 0
+ */
+int is_palindrome(listint_t **head)
+{
+	int length_list;
+
+	/* linked list empty or contain single node return 1 */
+	if (head == NULL || *head == NULL || (*head)->next == NULL)
+		return (1);
+	length_list = get_list_length(head);
+
+	return (palind_recursive_way(*head, length_list));
 }
