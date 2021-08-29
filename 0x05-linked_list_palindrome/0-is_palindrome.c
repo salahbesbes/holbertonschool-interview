@@ -56,35 +56,44 @@ int is_palindrome(listint_t **head)
 {
 	listint_t *original_list, *rev_list;
 	int mid_length, length_list, count, odd_length;
+
 	/* linked list empty or contain single node return 1 */
 	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return (1);
 	length_list = get_list_length(head);
-	mid_length = length_list / 2;
-	odd_length = length_list % 2 == 0 ? 0 : 1;
-	original_list = *head;
-	count = 0;
-	while (count != mid_length - 1)
+
+	return (palind(*head, length_list));
+}
+/**
+ * palind_recursive_way - check first node and last node recursively
+ * @list: head single list
+ * @length: length of list
+ *
+ * Return: 1 if plindromique else 0
+ */
+int palind_recursive_way(listint_t *list, int length)
+{
+
+	listint_t *newList, *last_node;
+	int count = 1;
+
+	if (length < 2)
+		return (1);
+	else if (length == 2)
+		return (list->n == list->next->n);
+
+	newList = list->next;
+	last_node = newList;
+
+	while (count < length - 2)
 	{
-		original_list = original_list->next;
+		last_node = last_node->next;
 		count++;
 	}
-	if (odd_length == 0)
+	if (list->n == last_node->next->n)
 	{
-		if (original_list->n != original_list->next->n)
-			return (0);
+		last_node->next = NULL;
+		return (palind(newList, length - 2));
 	}
-
-	rev_list = inverse_list(*head);
-	original_list = *head;
-
-	while (original_list)
-	{
-		if (rev_list->n != original_list->n)
-			return (0);
-		rev_list = rev_list->next;
-		original_list = original_list->next;
-	}
-
-	return (1);
+	return (0);
 }
