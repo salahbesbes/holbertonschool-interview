@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     def print_some_information(data):
         """  print a custum dict """
-        print("file size: {}".format(data["file_size"]))
+        print("File size: {}".format(data["file_size"]))
         # print the count of each status in the dict in asceding way
         for status, count in sorted(data["status_code"].items(),
                                     key=lambda x: x[0]):
