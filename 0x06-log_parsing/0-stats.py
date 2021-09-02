@@ -59,9 +59,8 @@ if __name__ == "__main__":
         }
 
         # read all stdin and save thel to a list of lines
-        for line in stdin:
+        for line_number, line in enumerate(stdin, 1):
             try:
-                line_number += 1
                 line_size = 0
                 line_status_code = 0
                 words = line.split()
@@ -76,8 +75,5 @@ if __name__ == "__main__":
             except Exception:
                 pass
 
-        # after looping all file print the last few line ( < 10)
-        if line_number % 10 != 0:
-            print_some_information(data_to_print)
     finally:
         print_some_information(data_to_print)
