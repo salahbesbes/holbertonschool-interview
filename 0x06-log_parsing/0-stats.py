@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ regex module used """
 import re
-from sys import stdin
+from sys import stdin, stdout
 
 
 # this regex is splited into groups that we can access later on
@@ -57,29 +57,27 @@ if __name__ == "__main__":
                             "405": 0,
                             "500": 0}
         }
+
         # read all stdin and save thel to a list of lines
-        data_stdin_list = enumerate(stdin, 1)
-        for n, line in data_stdin_list:
+        for line in stdin:
             try:
                 line_number += 1
                 line_size = 0
                 line_status_code = 0
-                # if we match the reg line we update the size and the count status
-                # else the are equal to 0
-                for match in re.finditer(regex, line, re.S):
-                    line_size = match.group(5)
-                    line_status_code = match.group(4)
+                words = line.split()
+                line_size += int(words[-1])
+                line_status_code = int(words[-2])
 
                 update_data({"file_size": line_size,
                             "status_code": line_status_code}, data_to_print)
                 # every 10 lines print
                 if line_number % 10 == 0:
                     print_some_information(data_to_print)
-            except:
+            except Exception:
                 pass
+
         # after looping all file print the last few line ( < 10)
         if line_number % 10 != 0:
             print_some_information(data_to_print)
-
     finally:
         print_some_information(data_to_print)
