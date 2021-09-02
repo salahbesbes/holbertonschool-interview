@@ -60,21 +60,23 @@ if __name__ == "__main__":
 
         # read all stdin and save thel to a list of lines
         for line_number, line in enumerate(stdin, 1):
-            line_size = 0
-            line_status_code = 0
-            words = line.split()
-            line_size += int(words[-1])
-            line_status_code = int(words[-2])
+            try:
+                line_size = 0
+                line_status_code = 0
+                words = line.split()
+                line_size += int(words[-1])
+                line_status_code = int(words[-2])
 
-            # update the size
-            data_to_print["file_size"] += line_size
-            # if the status code is in the lis update the count
-            if str(line_status_code) in data_to_print["status_code"].keys():
+                # update the size
+                data_to_print["file_size"] += line_size
+                # if the status code is in the lis update the count
                 data_to_print["status_code"][str(line_status_code)] += 1
 
-            # every 10 lines print
-            if line_number % 10 == 0:
-                print_some_information(data_to_print)
+                # every 10 lines print
+                if line_number % 10 == 0:
+                    print_some_information(data_to_print)
+            except ValueError:
+                pass
 
     finally:
         print_some_information(data_to_print)
