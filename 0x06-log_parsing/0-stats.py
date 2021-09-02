@@ -1,82 +1,37 @@
 #!/usr/bin/python3
-""" regex module used """
-import re
-from sys import stdin, stdout
+""" Script that reads stdin line by line and computes metrics """
 
 
-# this regex is splited into groups that we can access later on
-# the status code is at groupe 4 and the size is at 5
-regex_list = [r'(^(?:[0-9]{1,3}\.){3}[0-9]{1,3}) - ',  # 255.255.255.255
-              r'(\[\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\.\d+\] )',  # date
-              r'(\"GET /projects/260 HTTP/1\.1\" )',  # litral
-              r'(\d{3}) ',  # 3 digit nb
-              r'(\d+)']  # any number
-#  r is important to avoid warning of pep8
-regex = r''.join(regex_list)
-
-
-def update_data(newData, oldData):
-    """  update the old dict with data of one line """
-    try:
-        # cast data in newdata dict
-        status_line = int(newData["status_code"])
-        line_size = int(newData["file_size"])
-
-        # update the size
-        oldData["file_size"] += line_size
-        # if the status code is in the lis update the count
-        if str(status_line) in oldData["status_code"].keys():
-            oldData["status_code"][str(status_line)] += 1
-
-    except Exception:
-        pass
-
-
-def print_some_information(data):
-    """  print a custum dict """
-    print("File size: {}".format(data["file_size"]))
-    # print the count of each status in the dict in asceding way
-    for status, count in sorted(data["status_code"].items(),
-                                key=lambda x: x[0]):
-        print("{}: {}".format(status, count))
+def print_dict_sorted_nonzero(status_codes):
+    """Subroutine to print status codes with nonzero value in
+    numericalorder.
+    Args:
+        status_codes (dict): dictionary of status codes and the
+            number of times each one has been returned.
+    """
+    sorted_keys = sorted(status_codes.keys())
+    for k in sorted_keys:
+        if status_codes[k]:
+            print("{:d}: {:d}".format(k, status_codes[k]))
 
 
 if __name__ == "__main__":
+    import sys
 
     try:
-
-        line_number = 0
-        data_to_print = {
-            "file_size": 0,
-            "status_code": {"200": 0,
-                            "301": 0,
-                            "400": 0,
-                            "401": 0,
-                            "403": 0,
-                            "404": 0,
-                            "405": 0,
-                            "500": 0}
-        }
-
-        # read all stdin and save thel to a list of lines
-        for line_number, line in enumerate(stdin, 1):
+        total = 0
+        status_codes = \
+            {code: 0 for code in [200, 301, 400, 401, 403, 404, 405, 500]}
+        for n, line in enumerate(sys.stdin, 1):
             try:
-                line_size = 0
-                line_status_code = 0
                 words = line.split()
-                line_size += int(words[-1])
-                line_status_code = int(words[-2])
-
-                # update the size
-                data_to_print["file_size"] += line_size
-                # if the status code is in the lis update the count
-                data_to_print["status_code"][str(line_status_code)] += 1
-
-                # every 10 lines print
-                if line_number % 10 == 0:
-                    print_some_information(data_to_print)
+                total += int(words[-1])
+                status_codes[int(words[-2])] += 1
+                if n % 10 == 0:
+                    print("File size: {:d}".format(total))
+                    print_dict_sorted_nonzero(status_codes)
             except ValueError:
                 pass
-
     finally:
-        print_some_information(data_to_print)
+        print("File size: {:d}".format(total))
+        print_dict_sorted_nonzero(status_codes)
