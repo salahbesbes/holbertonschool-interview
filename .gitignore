@@ -1,4 +1,3 @@
 .vscode
-**cache**
+**pycache**
 a.out
-*.h.gch
