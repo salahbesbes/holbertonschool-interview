@@ -5,11 +5,11 @@
  * get_multiplier - calculate the length of the number
  * @n: any number
  *
- * Return: int
+ * Return: unsigned long
  */
-int get_multiplier(unsigned long n)
+unsigned long get_multiplier(unsigned long n)
 {
-	int mul = 1;
+	unsigned long mul = 1;
 
 	while (n >= 10)
 	{
@@ -30,18 +30,18 @@ int get_multiplier(unsigned long n)
 int is_palindrome(unsigned long n)
 {
 
-	int first_digit, last_digit, mul, new_digit;
+	int first_digit, last_digit;
+	unsigned long mul, new_digit;
 
 	mul = get_multiplier(n);
 
 	first_digit = n / mul;
 	last_digit = n % 10;
-
 	if (first_digit != last_digit)
 		return (0);
 
 	/*
-	 * if the number length is 2 digit long or less
+	 * if the number length is 3 digit long or less
 	 * we dont want to ckeck any more
 	*/
 	if (mul <= 100)
