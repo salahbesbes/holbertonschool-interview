@@ -37,8 +37,6 @@ int is_palindrome(unsigned long n)
 	first_digit = n / mul;
 	last_digit = n % 10;
 
-	printf("n =  %ld mul = %d\n", n, mul);
-
 	if (first_digit != last_digit)
 		return (0);
 
