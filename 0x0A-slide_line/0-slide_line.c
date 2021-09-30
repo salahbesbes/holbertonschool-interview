@@ -3,25 +3,37 @@
 #define Pass 0
 #define Merge 1
 #define Slide 2
-
-int slideLeft(int *arr, int slideIndex, int currentidex)
+/**
+ * slideLeft - sline int to the Left
+ * @arr: array
+ * @slideIndex: slideindex
+ * @currentIndex: index
+ * Return: new slide index
+ */
+int slideLeft(int *arr, int slideIndex, int currentIndex)
 {
 	if (arr[slideIndex] == 0)
 	{
 
-		arr[slideIndex] = arr[currentidex];
-		arr[currentidex] = 0;
+		arr[slideIndex] = arr[currentIndex];
+		arr[currentIndex] = 0;
 	}
 	return (slideIndex + 1);
 }
-
-int slideRight(int *arr, int slideIndex, int currentidex)
+/**
+ * slideRight - sline int to the right
+ * @arr: array
+ * @slideIndex: slideindex
+ * @currentIndex: index
+ * Return: new slide index
+ */
+int slideRight(int *arr, int slideIndex, int currentIndex)
 {
 	if (arr[slideIndex] == 0)
 	{
 
-		arr[slideIndex] = arr[currentidex];
-		arr[currentidex] = 0;
+		arr[slideIndex] = arr[currentIndex];
+		arr[currentIndex] = 0;
 	}
 	return (slideIndex - 1);
 }
@@ -43,7 +55,7 @@ int getFirstIndexToLeft(int *arr, int currentIndex)
 	return (currentIndex < 0 ? -1 : currentIndex);
 }
 /**
- * getFirstIndexToRight - get the index of the first int to the Right in the arr
+ * getFirstIndexToRight - get the index of first int to the Right in the arr
  * @arr: array
  * @currentIndex: index
  * @size: length of array
@@ -203,15 +215,14 @@ int slide_line(int *line, size_t size, int direction)
 		newArraySize = slideAllLeft(line, size);
 		checkForMergeLeft(line, newArraySize);
 		newArraySize = slideAllLeft(line, size);
+		return (1);
 	}
 	else if (direction == SLIDE_RIGHT)
 	{
 		newArraySize = slideAllRight(line, size);
 		checkForMergeRight(line, size);
 		newArraySize = slideAllRight(line, size);
+		return (1);
 	}
-	else
-		return (0);
-
-	return (1);
+	return (0);
 }
