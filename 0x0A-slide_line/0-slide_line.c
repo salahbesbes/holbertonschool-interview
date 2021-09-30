@@ -200,6 +200,8 @@ int slide_line(int *line, size_t size, int direction)
 		checkForMergeRight(line, size);
 		newArraySize = slideAllRight(line, size);
 	}
+	else
+		return (0);
 
-	return 1;
+	return (1);
 }
