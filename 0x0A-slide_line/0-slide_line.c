@@ -187,6 +187,11 @@ int slide_line(int *line, size_t size, int direction)
 {
 	int newArraySize;
 
+	if (!line)
+		return (0);
+	if (size < 2)
+		return (1);
+
 	if (direction == SLIDE_LEFT)
 	{
 
