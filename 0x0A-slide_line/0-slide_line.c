@@ -146,6 +146,9 @@ void checkForMergeLeft(int *arr, int size)
 {
 	int i = 0;
 
+	if (size < 2)
+		return;
+
 	for (i = 1; i < size; i += 2)
 	{
 		if (arr[i] == arr[i - 1])
@@ -168,6 +171,8 @@ void checkForMergeRight(int *arr, int size)
 {
 	int i = 0;
 
+	if (size < 2)
+		return;
 	for (i = size - 1; i >= 0; i -= 2)
 	{
 		if (arr[i] == arr[i - 1])

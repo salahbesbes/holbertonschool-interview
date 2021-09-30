@@ -35,8 +35,6 @@ int main(int ac, char **av)
 	int direction;
 	size_t i, size;
 
-	printf("%s\n", av[0]);
-	printf("%s\n", av[1]);
 	if (ac < 3)
 	{
 		fprintf(stderr, "Usage: %s <R/L> <n1> [n2...]\n", av[0]);
