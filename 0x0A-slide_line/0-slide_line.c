@@ -168,11 +168,11 @@ void checkForMergeLeft(int *arr, int size)
 		else
 			i--;
 	}
-	// if (size % 2 == 1)
-	// {
-	// 	if (arr[size - 1] == arr[size - 3])
-	// 		mergeLeft(arr, size - 1);
-	// }
+	if (size % 2 == 1)
+	{
+		if (arr[size - 1] == arr[size - 3])
+			mergeLeft(arr, size - 1);
+	}
 }
 /**
  * checkForMergeRight - check if we have 2 int to merge from the right
