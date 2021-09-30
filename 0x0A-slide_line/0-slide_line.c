@@ -4,6 +4,27 @@
 #define Merge 1
 #define Slide 2
 
+int slideLeft(int *arr, int slideIndex, int currentidex)
+{
+	if (arr[slideIndex] == 0)
+	{
+
+		arr[slideIndex] = arr[currentidex];
+		arr[currentidex] = 0;
+	}
+	return (slideIndex + 1);
+}
+
+int slideRight(int *arr, int slideIndex, int currentidex)
+{
+	if (arr[slideIndex] == 0)
+	{
+
+		arr[slideIndex] = arr[currentidex];
+		arr[currentidex] = 0;
+	}
+	return (slideIndex - 1);
+}
 /**
  * getFirstIndexToLeft - get the index of the first int to the left in the arr
  * @arr: array
@@ -164,7 +185,7 @@ void checkForMergeRight(int *arr, int size)
  */
 int slide_line(int *line, size_t size, int direction)
 {
-	int mergeIndex, slideIndex, res, i, newArraySize;
+	int newArraySize;
 
 	if (direction == SLIDE_LEFT)
 	{
