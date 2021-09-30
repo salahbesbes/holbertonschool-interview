@@ -189,6 +189,8 @@ void checkForMergeRight(int *arr, int size)
 	{
 		if (arr[i] == arr[i - 1])
 			mergeRight(arr, i);
+		else
+			i++;
 	}
 }
 
@@ -221,7 +223,7 @@ int slide_line(int *line, size_t size, int direction)
 	{
 		newArraySize = slideAllRight(line, size);
 		checkForMergeRight(line, size);
-		newArraySize = slideAllRight(line, size);
+		// newArraySize = slideAllRight(line, size);
 		return (1);
 	}
 	return (0);
