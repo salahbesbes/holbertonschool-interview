@@ -165,6 +165,8 @@ void checkForMergeLeft(int *arr, int size)
 	{
 		if (arr[i] == arr[i - 1])
 			mergeLeft(arr, i);
+		else
+			i--;
 	}
 	if (size % 2 == 1)
 	{
