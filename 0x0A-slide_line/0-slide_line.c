@@ -223,7 +223,7 @@ int slide_line(int *line, size_t size, int direction)
 	{
 		newArraySize = slideAllRight(line, size);
 		checkForMergeRight(line, size);
-		// newArraySize = slideAllRight(line, size);
+		newArraySize = slideAllRight(line, size);
 		return (1);
 	}
 	return (0);
