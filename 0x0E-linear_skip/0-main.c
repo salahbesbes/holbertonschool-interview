@@ -19,9 +19,9 @@ int main(void)
 		0,
 		1,
 		2,
+		2,
 		3,
-		4,
-	};
+		4};
 	size_t size = sizeof(array) / sizeof(array[0]);
 
 	list = create_skiplist(array, size);

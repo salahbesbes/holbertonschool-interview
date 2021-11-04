@@ -1,45 +1,63 @@
 #include "search.h"
 
 /**
- * linear_skip - Searches for a value in a sorted skip list
- * @list: Is a pointer to the head of the skip list
- * @value: Is the value to search for
- *
- * Description: A node of the express lane is placed every index which is a
- * multiple of the square root of the size of the list, and we assume that the
- * lilst is sorted in ascending order.
- * Return: A pointer on the first node where value is located.
+ * printCheck - print comparison
+ * @current: current node to compair to
+ * Return: Void
+ */
+void printCheck(skiplist_t *current)
+{
+	printf("Value checked at index [%lu] = [%d]\n", current->index, current->n);
+}
+
+/**
+ * linear_skip - print comparison
+ * @list: head of express layer
+ * @value: value to searh for
+ * Return: Node founded ot Null
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *jumper = list;
 
-	if (!list)
+	skiplist_t *current, *old_express, *next_express;
+	size_t diff, lastIndex;
+
+	if (list == NULL)
 		return (NULL);
-	while (jumper->express)
+	current = list;
+	while (current->next)
+		current = current->next;
+	lastIndex = current->index;
+	current = list;
+	old_express = list;
+	next_express = list->express;
+	while (current->express)
 	{
-		printf("Value checked at index [%lu] = [%d]\n",
-			   jumper->express->index, jumper->express->n);
-		if (jumper->express->n >= value)
+		printCheck(current->express);
+		if (value < current->express->n)
 		{
 			printf("Value found between indexes [%lu] and [%lu]\n",
-				   jumper->index, jumper->express->index);
+				   current->index, current->express->index);
 			break;
 		}
-		jumper = jumper->express;
+		old_express = current;
+		current = current->express;
 	}
-	if (!jumper->express)
+	diff = current->index - old_express->index;
+	next_express = current->express;
+
+	if (next_express == NULL)
 	{
-		for (list = jumper; list->next; list = list->next)
-			;
 		printf("Value found between indexes [%lu] and [%lu]\n",
-			   jumper->index, list->index);
+			   current->index, lastIndex);
 	}
-	for (list = jumper; list != jumper->express; list = list->next)
+	while (current)
 	{
-		printf("Value checked at index [%lu] = [%d]\n", list->index, list->n);
-		if (value == list->n)
-			break;
+		printCheck(current);
+		if (current->n == value)
+			return (current);
+		current = current->next;
 	}
-	return (list == jumper->express ? NULL : list);
+
+	return (NULL);
 }
