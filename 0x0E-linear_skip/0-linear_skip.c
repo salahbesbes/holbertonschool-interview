@@ -28,7 +28,6 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	old_express = list;
 	if (current->express)
 		diff = current->express->index - current->index;
-
 	while (current)
 	{
 
@@ -53,7 +52,7 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 		if (current == NULL)
 		{
 			printf("Value found between indexes [%lu] and [%lu]\n",
-				   old_express->index, old_express->index + diff - 1);
+				   old_express->index, old_express->index + diff);
 			while (old_express)
 			{
 				printCheck(old_express);
