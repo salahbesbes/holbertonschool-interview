@@ -1,78 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
 #include "search.h"
 
 /**
- * printCheck - print comparison
- * @current: current node to compair to
- * Return: Void
- */
-void printCheck(skiplist_t *current)
+* printN - Initializes the express lane of the linked list
+*
+* @node: Pointer to the head node of the list
+*
+* Return: A pointer to the head of the created list (NULL on failure)
+*/
+int printN(skiplist_t *node)
 {
-	printf("Value checked at index [%lu] = [%d]\n", current->index, current->n);
+	printf("Value checked at index [%ld] = [%d]\n", node->index, node->n);
+	return (node->n);
 }
 
 /**
- * linear_skip - print comparison
- * @list: head of express layer
- * @value: value to searh for
- * Return: Node founded ot Null
- */
+* linear_skip - Initializes the express lane of the linked list
+*
+* @list: Pointer to the head node of the list
+* @value: Number of nodes in the list
+*
+* Return: A pointer to the head of the created list (NULL on failure)
+*/
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
+	skiplist_t *node, *copy, *lastExp;
+	int len;
 
-	skiplist_t *current, *old_express;
-	size_t diff = 0;
-
-	if (list == NULL)
-		return (NULL);
-	current = list;
-	old_express = list;
-	if (current->express)
-		diff = current->express->index - current->index;
-	while (current)
+	len = 0;
+	copy = list;
+	lastExp = list;
+	node = list;
+	while (node)
 	{
-
-		if (value < current->n)
-		{
-			printf("Value found between indexes [%lu] and [%lu]\n",
-				   old_express->index, current->index);
-			while (old_express)
-			{
-				printCheck(old_express);
-				if (value == old_express->n)
-				{
-					return (old_express);
-				}
-				old_express = old_express->next;
-				if (old_express == NULL)
-					return (NULL);
-			}
-		}
-		old_express = current;
-		current = current->express;
-		if (current == NULL)
-		{
-			if (diff < 3)
-				printf("Value found between indexes [%ld] and [%lu]\n",
-					   old_express->index - diff, old_express->index);
-			else
-				printf("Value found between indexes [%lu] and [%lu]\n",
-					   old_express->index, old_express->index + diff - 1);
-
-			while (old_express)
-			{
-				printCheck(old_express);
-				if (value == old_express->n)
-				{
-					return (old_express);
-				}
-				old_express = old_express->next;
-				if (old_express == NULL)
-					return (NULL);
-			}
-		}
-		else
-			printCheck(current);
+		len++;
+		node = node->next;
 	}
-
+	if (!list)
+		return (NULL);
+	while (copy->express)
+	{
+		copy = copy->express;
+		if (value <= printN(copy))
+		{
+			printf("Value found between indexes [%ld] and [%ld]\n", lastExp->index, copy->index);
+			while (lastExp->index <= copy->index)
+			{
+				if (value == printN(lastExp))
+					return (lastExp);
+				lastExp = lastExp->next;
+			}
+			return (NULL);
+		}
+		lastExp = copy;
+	}
+	printf("Value found between indexes [%ld] and [%d]\n", copy->index, len);
+	while (copy)
+	{
+		if (value == printN(copy))
+			return (copy);
+		copy = copy->next;
+	}
 	return (NULL);
 }
