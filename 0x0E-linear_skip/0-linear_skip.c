@@ -22,16 +22,18 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	skiplist_t *current;
 	int diff = 0;
 
+	if (list == NULL)
+		return (NULL);
 	current = list;
 	while (current)
 	{
+		printCheck(current);
 		if (value == current->n)
 		{
 			return (current);
 		}
 		if (current->express)
 			diff = current->express->n - current->n;
-		printCheck(current);
 		if (value < current->n + diff || current->express == NULL)
 		{
 			while (current->next)
