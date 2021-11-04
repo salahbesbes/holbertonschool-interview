@@ -18,15 +18,13 @@ void printCheck(skiplist_t *current)
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *current;
+	skiplist_t *current, *pointer;
 	size_t lastIndex;
 
 	if (list == NULL)
 		return (NULL);
 	current = list;
-	while (current->next)
-		current = current->next;
-	lastIndex = current->index;
+
 	current = list;
 	while (current->express)
 	{
@@ -41,6 +39,10 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	}
 	if (current->express == NULL)
 	{
+		pointer = current;
+		while (pointer->next)
+			pointer = pointer->next;
+		lastIndex = pointer->index;
 		printf("Value found between indexes [%lu] and [%lu]\n",
 			   current->index, lastIndex);
 	}
