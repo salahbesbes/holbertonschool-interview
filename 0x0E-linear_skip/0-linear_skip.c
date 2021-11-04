@@ -44,10 +44,11 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	while (copy->express)
 	{
 		copy = copy->express;
-		if (value <= printN(copy))
+		if (value < printN(copy))
 		{
-			printf("Value found between indexes [%ld] and [%ld]\n", lastExp->index, copy->index);
-			while (lastExp->index <= copy->index)
+			printf("Value found between indexes [%ld] and [%ld]\n",
+				   lastExp->index, copy->index);
+			while (lastExp && lastExp->index <= copy->index)
 			{
 				if (value == printN(lastExp))
 					return (lastExp);
