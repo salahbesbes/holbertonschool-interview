@@ -27,18 +27,13 @@ int printN(skiplist_t *node)
 */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *node, *copy, *lastExp;
+	skiplist_t *copy, *lastExp;
 	int len;
 
 	len = 0;
 	copy = list;
 	lastExp = list;
-	node = list;
-	while (node)
-	{
-		len++;
-		node = node->next;
-	}
+
 	if (!list)
 		return (NULL);
 	while (copy->express)
@@ -48,7 +43,7 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 		{
 			printf("Value found between indexes [%ld] and [%ld]\n",
 				   lastExp->index, copy->index);
-			while (lastExp && lastExp->index <= copy->index)
+			while (lastExp->index <= copy->index)
 			{
 				if (value == printN(lastExp))
 					return (lastExp);
@@ -56,9 +51,10 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 			}
 			return (NULL);
 		}
+		len = copy->index - lastExp->index;
 		lastExp = copy;
 	}
-	printf("Value found between indexes [%ld] and [%d]\n", copy->index, len);
+	printf("Value found between indexes [%ld] and [%d]\n", copy->index, copy->index + len - 1);
 	while (copy)
 	{
 		if (value == printN(copy))
