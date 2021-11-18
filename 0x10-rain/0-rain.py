@@ -23,7 +23,7 @@ def getVolumeBetweenTowWals(firstWall, walls):
         if wall != 0:
 
             widthContainer = index
-            heightContainer = min(firstWallHeight, walls[index])
+            heightContainer = min(firstWallHeight, wall)
             return {"containerVolume": widthContainer * heightContainer,
                     "nextWallIndex": index}
 
