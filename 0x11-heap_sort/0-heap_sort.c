@@ -1,94 +1,48 @@
-#include "sort.h"
 #include <stdio.h>
-
-/**
- * swap - swap 2 values in a tree
- * @array: array
- * @value1: value1
- * @value2: value2
- * Return: Void
- */
-void swap(int *array, int value1, int value2)
+#include "sort.h"
+// Function to swap the the position of two elements
+void swap(int *a, int *b)
 {
-	int tmp;
-
-	tmp = array[value1];
-	array[value1] = array[value2];
-	array[value2] = tmp;
+	int temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
-/**
- * siftDown - siftdown th tree
- * @array: array
- * @start: start
- * @end: end
- * @size: size
- * Return: Void
- */
-void siftDown(int *array, int start, int end, int size)
+void heapify(int arr[], int n, int i, int size)
 {
-	int rootIndex, childIndex;
+	// Find largest among root, left child and right child
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
 
-	rootIndex = start;
-	while (rootIndex * 2 + 1 <= end)
+	if (left < n && arr[left] > arr[largest])
+		largest = left;
+
+	if (right < n && arr[right] > arr[largest])
+		largest = right;
+
+	// Swap and continue heapifying if root is not largest
+	if (largest != i)
 	{
-		childIndex = rootIndex * 2 + 1;
-
-		if (childIndex + 1 <= end && array[childIndex] < array[childIndex + 1])
-		{
-			childIndex++;
-		}
-
-		if (array[rootIndex] < array[childIndex])
-		{
-			swap(array, rootIndex, childIndex);
-			print_array(array, size);
-			rootIndex = childIndex;
-		}
-		else
-		{
-			return;
-		}
+		swap(&arr[i], &arr[largest]);
+		print_array(arr, size);
+		heapify(arr, n, largest, size);
 	}
 }
-/**
- * heapify - siftdown th tree
- * @array: array
- * @size: size
- * Return: Void
- */
-void heapify(int *array, int size)
+
+// Main function to do heap sort
+void heap_sort(int *arr, size_t n)
 {
-	int LastParentNodeIndex;
+	// Build max heap
+	for (int i = (int)n / 2 - 1; i >= 0; i--)
+		heapify(arr, (int)n, i, (int)n);
 
-	LastParentNodeIndex = (size - 2) / 2;
-
-	while (LastParentNodeIndex >= 0)
+	// Heap sort
+	for (int i = (int)n - 1; i >= 0; i--)
 	{
-		siftDown(array, LastParentNodeIndex, size - 1, size);
-		LastParentNodeIndex--;
-	}
-}
-/**
- * heap_sort - heap_sort th tree
- * @array: array
- * @size: size
- * Return: Void
- */
-void heap_sort(int *array, size_t size)
-{
-
-	int lastIndex;
-
-	heapify(array, (int)size);
-
-	lastIndex = size - 1;
-
-	while (lastIndex > 0)
-	{
-		swap(array, lastIndex, 0);
-		print_array(array, (int)size);
-		lastIndex--;
-		siftDown(array, 0, lastIndex, size);
+		swap(&arr[0], &arr[i]);
+		print_array(arr, (int)n);
+		// Heapify root element to get highest element at root again
+		heapify(arr, i, 0, (int)n);
 	}
 }
