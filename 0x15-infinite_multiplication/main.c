@@ -32,14 +32,16 @@ void printResult(char *arr, int length)
 	int i = 0;
 
 	if (arr[0] == 0)
-	{
 		i = 1;
-	}
+
 	for (; i < length; i++)
 	{
-		printf("%d", arr[i]);
+		if (arr[i] >= 0 && arr[i] <= 9)
+			putchar(arr[i] + '0');
+		else
+			putchar(arr[i]);
 	}
-	printf("\n");
+	putchar('\n');
 }
 /**
  * string_length - length of string
@@ -95,25 +97,24 @@ int main(int argc, char *argv[])
 {
 
 	char *arg1 = argv[1], *arg2 = argv[2];
-	int n1L, n2L;
+	int n1L, n2L, i, j, digit;
 	char *n1, *n2, *res;
-	int i, j, digit;
 
 	if (argc != 3)
 	{
-		printf("Error\n");
+		printResult("Error", 5);
 		exit(98);
 	}
 	n1L = string_length(arg1);
 	n2L = string_length(arg2);
 	if (n1L == -1 || n2L == -1)
 	{
-		printf("Error\n");
+		printResult("Error", 5);
 		exit(98);
 	}
 	if ((n1L == 1 || n2L == 1) && (*arg1 == '0' || *arg2 == '0'))
 	{
-		printf("0\n");
+		printResult("0", 1);
 		return (0);
 	}
 	n1 = malloc(sizeof(int) * n1L);
@@ -121,7 +122,6 @@ int main(int argc, char *argv[])
 	res = malloc(sizeof(int) * (n1L + n2L));
 	for (i = 0; i < n1L; i++)
 		n1[i] = arg1[i];
-
 	for (i = 0; i < n2L; i++)
 		n2[i] = arg2[i];
 	reverse(n1, n1L);
@@ -134,6 +134,5 @@ int main(int argc, char *argv[])
 	free(n1);
 	free(n2);
 	free(res);
-
 	return (0);
 }
