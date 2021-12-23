@@ -54,7 +54,7 @@ void printResult(char *arr, int length)
  */
 int string_length(char *pointer)
 {
-	int c = 0;
+	int c = 0, sum = 0;
 
 	for (c = 0; pointer[c] != '\0'; c++)
 	{
@@ -62,8 +62,9 @@ int string_length(char *pointer)
 		{
 			return (-1);
 		}
+		sum += pointer[c] - '0';
 	}
-	return (c);
+	return sum == 0 ? (-2) : (c);
 }
 
 /**
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
 		printResult("Error", 5);
 		exit(98);
 	}
-	if ((n1L == 1 || n2L == 1) && (*arg1 == '0' || *arg2 == '0'))
+	if ((n1L == -2 || n2L == -2))
 	{
 		printResult("0", 1);
 		return (0);
