@@ -64,7 +64,7 @@ int string_length(char *pointer)
 		}
 		sum += pointer[c] - '0';
 	}
-	return sum == 0 ? (-2) : (c);
+	return (sum == 0 ? -2 : c);
 }
 
 /**
