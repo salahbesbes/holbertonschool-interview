@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "holberton.h"
+
 /**
  * reverse - inverse an array
  *
@@ -9,8 +10,9 @@
  */
 void reverse(char arr[], int n)
 {
-	int aux[n], i;
+	int *aux, i;
 
+	aux = malloc(sizeof(int) * n);
 	for (i = 0; i < n; i++)
 	{
 		aux[n - 1 - i] = arr[i];
@@ -20,6 +22,7 @@ void reverse(char arr[], int n)
 	{
 		arr[i] = aux[i];
 	}
+	free(aux);
 }
 /**
  * printResult- print a readable string from array
