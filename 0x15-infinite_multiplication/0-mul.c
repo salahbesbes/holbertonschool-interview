@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 {
 
 	char *arg1 = argv[1], *arg2 = argv[2];
-	int n1L, n2L, i, j, digit;
+	int n1L, n2L, i;
 	char *n1, *n2, *res;
 
 	if (argc != 3)
