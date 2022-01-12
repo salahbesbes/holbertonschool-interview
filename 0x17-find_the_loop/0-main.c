@@ -33,13 +33,14 @@ int main(void)
 	printf("------------------------\n");
 	head = NULL;
 	node = add_nodeint(&head, 0);
+	node->next = node;
 	add_nodeint(&head, 1);
 	add_nodeint(&head, 2);
 	add_nodeint(&head, 3);
 	add_nodeint(&head, 4);
 	add_nodeint(&head, 5);
 	add_nodeint(&head, 6);
-	node->next = add_nodeint(&head, 7);
+	add_nodeint(&head, 7);
 	add_nodeint(&head, 98);
 	add_nodeint(&head, 402);
 	add_nodeint(&head, 1024);
