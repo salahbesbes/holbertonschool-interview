@@ -14,11 +14,11 @@ listint_t *loopExistAndHeadExistInIt(listint_t *head)
 
 	if (!head || !head->next)
 		return (NULL);
+	turtle = head;
+	rabbit = head->next;
 	if (rabbit->next == head)
 		return (head);
 
-	turtle = head;
-	rabbit = head->next;
 	while (rabbit && rabbit->next)
 	{
 		if (rabbit == turtle)
