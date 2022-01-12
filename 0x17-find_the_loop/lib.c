@@ -13,8 +13,8 @@
  */
 typedef struct listdone_s
 {
-    const struct listint_s *node;
-    struct listdone_s *next;
+	const struct listint_s *node;
+	struct listdone_s *next;
 } listdone_t;
 
 /**
@@ -27,27 +27,27 @@ typedef struct listdone_s
  */
 const listint_t *_find_in_list(listdone_t **done, const listint_t *node)
 {
-    listdone_t *p;
+	listdone_t *p;
 
-    p = *done;
-    while (p)
-    {
-        if (p->node == node)
-        {
-            return (p->node);
-        }
-        p = p->next;
-    }
-    p = malloc(sizeof(listdone_t));
-    if (p == NULL)
-    {
-        printf("Error\n");
-        exit(98);
-    }
-    p->node = node;
-    p->next = *done;
-    *done = p;
-    return (NULL);
+	p = *done;
+	while (p)
+	{
+		if (p->node == node)
+		{
+			return (p->node);
+		}
+		p = p->next;
+	}
+	p = malloc(sizeof(listdone_t));
+	if (p == NULL)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+	p->node = node;
+	p->next = *done;
+	*done = p;
+	return (NULL);
 }
 
 /**
@@ -57,14 +57,14 @@ const listint_t *_find_in_list(listdone_t **done, const listint_t *node)
  */
 void _free_done(listdone_t *done)
 {
-    listdone_t *tmp;
+	listdone_t *tmp;
 
-    while (done)
-    {
-        tmp = done->next;
-        free(done);
-        done = tmp;
-    }
+	while (done)
+	{
+		tmp = done->next;
+		free(done);
+		done = tmp;
+	}
 }
 
 /**
@@ -77,17 +77,17 @@ void _free_done(listdone_t *done)
  */
 listint_t *add_nodeint(listint_t **head, const int n)
 {
-    listint_t *new;
+	listint_t *new;
 
-    new = malloc(sizeof(listint_t));
-    if (new == NULL)
-    {
-        return (NULL);
-    }
-    new->n = n;
-    new->next = *head;
-    *head = new;
-    return (new);
+	new = malloc(sizeof(listint_t));
+	if (new == NULL)
+	{
+		return (NULL);
+	}
+	new->n = n;
+	new->next = *head;
+	*head = new;
+	return (new);
 }
 
 /**
@@ -99,30 +99,30 @@ listint_t *add_nodeint(listint_t **head, const int n)
  */
 size_t free_listint_safe(listint_t **h)
 {
-    listdone_t *done;
-    listint_t *head;
-    listint_t *tmp;
-    size_t n;
+	listdone_t *done;
+	listint_t *head;
+	listint_t *tmp;
+	size_t n;
 
-    head = *h;
-    n = 0;
-    done = NULL;
-    while (head)
-    {
-        if (_find_in_list(&done, head) != NULL)
-        {
-            _free_done(done);
-            *h = NULL;
-            return (n);
-        }
-        tmp = head;
-        head = head->next;
-        free(tmp);
-        n++;
-    }
-    _free_done(done);
-    *h = NULL;
-    return (n);
+	head = *h;
+	n = 0;
+	done = NULL;
+	while (head)
+	{
+		if (_find_in_list(&done, head) != NULL)
+		{
+			_free_done(done);
+			*h = NULL;
+			return (n);
+		}
+		tmp = head;
+		head = head->next;
+		free(tmp);
+		n++;
+	}
+	_free_done(done);
+	*h = NULL;
+	return (n);
 }
 
 /**
@@ -134,23 +134,23 @@ size_t free_listint_safe(listint_t **h)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-    listdone_t *done;
-    size_t n;
+	listdone_t *done;
+	size_t n;
 
-    n = 0;
-    done = NULL;
-    while (head)
-    {
-        if (_find_in_list(&done, head) != NULL)
-        {
-            printf("-> [%p] %d\n", (void *)head, head->n);
-            _free_done(done);
-            return (n);
-        }
-        printf("[%p] %d\n", (void *)head, head->n);
-        head = head->next;
-        n++;
-    }
-    _free_done(done);
-    return (n);
+	n = 0;
+	done = NULL;
+	while (head)
+	{
+		if (_find_in_list(&done, head) != NULL)
+		{
+			printf("-> [%p] %d\n", (void *)head, head->n);
+			_free_done(done);
+			return (n);
+		}
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+		n++;
+	}
+	_free_done(done);
+	return (n);
 }
