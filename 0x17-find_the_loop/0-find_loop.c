@@ -12,13 +12,13 @@ listint_t *loopExistAndHeadExistInIt(listint_t *head)
 {
 	listint_t *turtle, *rabbit;
 
-	turtle = head;
-	rabbit = head->next;
-
 	if (!head || !head->next)
 		return (NULL);
 	if (rabbit->next == head)
 		return (head);
+
+	turtle = head;
+	rabbit = head->next;
 	while (rabbit && rabbit->next)
 	{
 		if (rabbit == turtle)
