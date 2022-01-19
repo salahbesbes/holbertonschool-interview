@@ -48,12 +48,32 @@ void merge(int *arr, int start, int mid, int end)
 		k++;
 		i++;
 	}
+	printf("[Done]: ");
 	for (i = start; i <= end; i += 1)
 	{
 		arr[i] = newArray[i - start];
+		printf("%d", arr[i]);
+		if (i < end)
+			printf(", ");
 	}
+	printf("\n");
+
 	free(newArray);
 }
+
+void printArrayFrom(int *arr, int start, int end)
+{
+	int i = start;
+	while (arr && i <= end)
+	{
+		if (i > 0)
+			printf(", ");
+		printf("%d", arr[i]);
+		++i;
+	}
+	printf("\n");
+}
+
 /**
  * recursive_merge_sort - handle sort Array
  * @arr: main array
@@ -64,14 +84,31 @@ void merge(int *arr, int start, int mid, int end)
  */
 void recursive_merge_sort(int *arr, int start, int end)
 {
-	int mid;
+	int mid, i;
 
 	if (end > start)
 	{
 		mid = (end + start) / 2;
-		printf("recursivemerge sort called \n");
 		recursive_merge_sort(arr, start, mid);
 		recursive_merge_sort(arr, mid + 1, end);
+
+		printf("Merging...\n");
+		printf("[left]: ");
+		for (i = start; i < mid + 1; i++)
+		{
+			printf("%d", arr[i]);
+			if (i < mid)
+				printf(", ");
+		}
+
+		printf("\n[right]: ");
+		for (i = mid + 1; i <= end; i++)
+		{
+			printf("%d", arr[i]);
+			if (i < end)
+				printf(", ");
+		}
+		printf("\n");
 		merge(arr, start, mid, end);
 	}
 }
