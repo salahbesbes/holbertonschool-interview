@@ -6,6 +6,7 @@
  * and save it into temperaty Array then coppy it into
  * the right place in the main Array
  * @arr: main array
+ * @tmp: temporatry Allocated
  * @start: start index
  * @mid: mid index
  * @end: end index
@@ -57,6 +58,7 @@ void merge(int *arr, int *tmp, int start, int mid, int end)
 /**
  * recursive_merge_sort - handle sort Array
  * @arr: main array
+ * @tmp: temporatry Allocated
  * @start: start index
  * @end: end index
  *
