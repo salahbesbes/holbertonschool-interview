@@ -2,115 +2,113 @@
 #include "sort.h"
 
 /**
- * top_down_merge - putting elements in the newly created array
- * @array: original array
- * @first: first index of array
- * @mid: middle index of array
- * @last: last index of array
- * @t: sorted array
+ * merge - sort the 2 chunks of array by compairing each value
+ * and save it into temperaty Array then coppy it into
+ * the right place in the main Array
+ * @arr: main array
+ * @start: start index
+ * @mid: mid index
+ * @end: end index
+ *
+ * Return: Void
  */
-void top_down_merge(int *array, int first, int mid, int last, int *t)
+void merge(int *arr, int *tmp, int start, int mid, int end)
 {
-	int i = first;
-	int j = mid;
-	int k = 0;
+	int k, i, j;
 
-	for (k = first; k < last; k++)
+	i = start, k = 0, j = mid;
+	while (i < mid && j < end)
 	{
-		if (i < mid && (j >= last || t[i] <= t[j]))
+		if (arr[j] <= arr[i])
 		{
-			array[k] = t[i];
-			i = i + 1;
+			tmp[k] = arr[j];
+			j++;
 		}
 		else
 		{
-			array[k] = t[j];
-			j = j + 1;
+			tmp[k] = arr[i];
+			i++;
 		}
+		k++;
 	}
+	while (j < end)
+	{
+		tmp[k] = arr[j];
+		k++;
+		j++;
+	}
+	while (i < mid)
+	{
+		tmp[k] = arr[i];
+		k++;
+		i++;
+	}
+	printf("[Done]: ");
+	for (i = start; i < end; i += 1)
+	{
+		arr[i] = tmp[i - start];
+		printf("%d", arr[i]);
+		if (i < end - 1)
+			printf(", ");
+	}
+	printf("\n");
 }
 
 /**
- * top_down_split_merge - splitting array in halfs
- * @t: sorted array
- * @first: first index of array
- * @last: last index of array
- * @array: original array
+ * recursive_merge_sort - handle sort Array
+ * @arr: main array
+ * @start: start index
+ * @end: end index
+ *
+ * Return: Void
  */
-void top_down_split_merge(int *t, int first, int last, int *array)
+void recursive_merge_sort(int *arr, int *tmp, int start, int end)
 {
-	int mid;
-	int i = 0;
+	int mid, i;
 
-	if (last - first <= 1)
+	if (end - start <= 1)
 		return;
-	mid = (last + first) / 2;
-
-	top_down_split_merge(array, first, mid, t);
-
-	top_down_split_merge(array, mid, last, t);
+	mid = (end + start) / 2;
+	recursive_merge_sort(arr, tmp, start, mid);
+	recursive_merge_sort(arr, tmp, mid, end);
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	for (i = first; i < mid; i++)
+	for (i = start; i < mid; i++)
 	{
-		printf("%d", t[i]);
+		printf("%d", arr[i]);
 		if (i < mid - 1)
 			printf(", ");
 	}
 
 	printf("\n[right]: ");
-	for (i = mid; i < last; i++)
+	for (i = mid; i < end; i++)
 	{
-		printf("%d", t[i]);
-		if (i < last - 1)
-			printf(", ");
-	}
-
-	top_down_merge(array, first, mid, last, t);
-
-	printf("\n");
-	printf("[Done]: ");
-	for (i = first; i < last; i++)
-	{
-		printf("%d", array[i]);
-		if (i < last - 1)
+		printf("%d", arr[i]);
+		if (i < end - 1)
 			printf(", ");
 	}
 	printf("\n");
+	merge(arr, tmp, start, mid, end);
 }
 
 /**
- * top_down_merge_sort - using top down method
- * @array: original array
- * @t: sorted array
- * @size: size of original array
+ * merge_sort - handle sort Array
+ * @array: main array
+ * @size: length of array
+ *
+ * Return: Void
  */
-void top_down_merge_sort(int *array, int *t, int size)
-{
-	int i;
 
-	for (i = 0; i < size; i++)
-		t[i] = array[i];
-	top_down_split_merge(t, 0, size, array);
-}
-
-/**
- * merge_sort - sorts an array of integers in ascending order using
- * the Merge Sort algorithm
- * @array: array of integers
- * @size: size of array
- */
 void merge_sort(int *array, size_t size)
 {
-	int *t;
 
-	if (array == NULL)
-		return;
+	int length, *tmp;
 
-	t = malloc(sizeof(int) * size);
+	length = (int)size;
 
-	top_down_merge_sort(array, t, size);
+	tmp = malloc(sizeof(int) * length);
 
-	free(t);
+	recursive_merge_sort(array, tmp, 0, length);
+	free(tmp);
 }
