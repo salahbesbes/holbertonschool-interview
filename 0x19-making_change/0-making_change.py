@@ -10,6 +10,8 @@ def makeChange(arr, val):
                 a given amount total
     """
 
+    if (val <= 0):
+        return 0
     arr.sort(reverse=True)
 
     res = 0
@@ -18,13 +20,17 @@ def makeChange(arr, val):
         biggest = arr[i]
         res += biggest
         count += 1
-        if (res == val):
+        if res == val:
             return count
+        if res > val:
+            count -= 1
+            res = 0
+            continue
         while (res <= val-biggest):
             res += biggest
             count += 1
             if (res == val):
                 return count
-        i += 1
+        # i += 1
 
     return -1
