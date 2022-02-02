@@ -18,14 +18,16 @@ def makeChange(arr, val):
     count = 0
     for i in range(0, len(arr)):
         biggest = arr[i]
-        res += biggest
-        count += 1
-        if res == val:
+        # print("=>", res, "count", count, "biggest ", biggest)
+        if res + biggest == val:
+            count += 1
             return count
-        if res > val:
-            count -= 1
-            res = 0
+        if res + biggest > val:
             continue
+        else:
+
+            res += biggest
+            count += 1
         while (res <= val-biggest):
             res += biggest
             count += 1
