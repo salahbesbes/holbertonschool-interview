@@ -25,8 +25,6 @@ List *add_node_end(List **list, char *str)
 	}
 	last = (*list)->prev;
 
-	if (last == NULL)
-		last = (*list);
 	new->next = *list;
 	(*list)->prev = new;
 	last->next = new;
