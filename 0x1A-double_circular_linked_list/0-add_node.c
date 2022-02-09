@@ -5,7 +5,11 @@ List *create_node(char *str)
 	List *new_node = NULL;
 
 	new_node = malloc(sizeof(List));
+	if (!new_node)
+		return (NULL);
 	new_node->str = strdup(str);
+	new_node->next = NULL;
+	new_node->prev = NULL;
 	if (!new_node->str)
 		return (NULL);
 	return (new_node);

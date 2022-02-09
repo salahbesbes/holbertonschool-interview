@@ -35,8 +35,8 @@ int main(void)
 	List *list;
 
 	list = NULL;
-	// add_node_end(&list, "Holberton");
-	// add_node_end(&list, "School");
+	add_node_end(&list, "Holberton");
+	add_node_end(&list, "School");
 	// add_node_begin(&list, "School");
 	// add_node_end(&list, "Full");
 	// add_node_end(&list, "Stack");
@@ -44,7 +44,7 @@ int main(void)
 
 	// printf("Added to the end:\n");
 	// print_list(list);
-	list = NULL;
+	// list = NULL;
 	add_node_begin(&list, "Holberton");
 	add_node_begin(&list, "Full");
 	add_node_begin(&list, "Stack");
