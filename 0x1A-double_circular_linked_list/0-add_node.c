@@ -19,8 +19,8 @@ List *add_node_end(List **list, char *str)
 	if ((*list) == NULL)
 	{
 		*list = new;
-		(*list)->prev = NULL;
-		(*list)->next = NULL;
+		(*list)->prev = new;
+		(*list)->next = new;
 		return (new);
 	}
 	last = (*list)->prev;
