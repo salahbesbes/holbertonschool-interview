@@ -42,29 +42,9 @@ List *add_node_end(List **list, char *str)
 }
 List *add_node_begin(List **list, char *str)
 {
-	List *last, *new, *head;
+	List *new;
 
-	if (!str)
-		return (NULL);
-	new = create_node(str);
-	if (new == NULL)
-		return (NULL);
-	if (!list || !(*list))
-	{
-		*list = new;
-		(*list)->prev = new;
-		(*list)->next = new;
-		return (new);
-	}
-	head = *list;
-	last = (*list)->prev;
-
-	new->next = *list;
-	new->prev = last;
-	last->next = new;
-	head->prev = new;
-
-	*list = new;
-
+	new = add_node_end(list, str);
+	(*list) = new;
 	return (new);
 }
