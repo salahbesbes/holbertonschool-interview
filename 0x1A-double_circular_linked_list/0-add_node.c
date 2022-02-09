@@ -15,10 +15,12 @@ List *add_node_end(List **list, char *str)
 {
 	List *last, *new;
 
+	if (!str)
+		return (NULL);
 	new = create_node(str);
 	if (new == NULL)
 		return (NULL);
-	if ((*list) == NULL)
+	if (!list || !(*list))
 	{
 		*list = new;
 		(*list)->prev = new;
