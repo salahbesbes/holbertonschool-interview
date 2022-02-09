@@ -13,15 +13,12 @@ List *create_node(char *str)
 
 List *add_node_end(List **list, char *str)
 {
-	List *head, *last, *new;
-
-	head = *list;
+	List *last, *new;
 
 	new = create_node(str);
 	if ((*list) == NULL)
 	{
 		*list = new;
-		printf((*list)->str);
 		(*list)->prev = NULL;
 		(*list)->next = NULL;
 		return (new);
