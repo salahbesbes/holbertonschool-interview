@@ -47,7 +47,7 @@ int main(void)
 	list = NULL;
 	add_node_begin(&list, "Holberton");
 	add_node_begin(&list, "Full");
-	// add_node_begin(&list, "Stack");
+	add_node_begin(&list, "Stack");
 	// add_node_begin(&list, "Engineer");
 
 	// printf("Added to the beginning:\n");
