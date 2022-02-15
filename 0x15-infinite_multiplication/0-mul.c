@@ -1,142 +1,110 @@
+#include "holberton.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "holberton.h"
 
 /**
- * reverse - inverse an array
- *
- * @arr: array
- * @n: length
+ * max - finds max between two ints
+ * @a: first int
+ * @b: second int
+ * Return: bigger integer
  */
-void reverse(char arr[], int n)
+int max(int a, int b)
 {
-	int *aux, i;
-
-	aux = malloc(sizeof(int) * n);
-	for (i = 0; i < n; i++)
-	{
-		aux[n - 1 - i] = arr[i];
-	}
-
-	for (i = 0; i < n; i++)
-	{
-		arr[i] = aux[i];
-	}
-	free(aux);
+	if (a > b)
+		return (a);
+	return (b);
 }
+
 /**
- * printResult- print a readable string from array
- *
- * @arr: Result Array
- * @length: length of array
+ * print_error - prints an error message
+ * @msg: error message
+ * Return: Nothing
  */
-void printResult(char *arr, int length)
+void print_error(char *msg)
+{
+	while (*msg)
+	{
+		_putchar(*msg);
+		msg++;
+	}
+}
+
+/**
+ * length - counts length of string
+ * @str: string
+ * Return: length of string
+ */
+int length(char *str)
 {
 	int i = 0;
 
-	if (arr[0] == 0)
-		i = 1;
-
-	for (; i < length; i++)
-	{
-		if (arr[i] >= 0 && arr[i] <= 9)
-			putchar(arr[i] + '0');
-		else
-			putchar(arr[i]);
-	}
-	putchar('\n');
-}
-/**
- * string_length - length of string
- *
- * @pointer: string
- * Return: int
- */
-int string_length(char *pointer)
-{
-	int c = 0, sum = 0;
-
-	for (c = 0; pointer[c] != '\0'; c++)
-	{
-		if (pointer[c] < '0' || pointer[c] > '9')
-		{
-			return (-1);
-		}
-		sum += pointer[c] - '0';
-	}
-	return (sum == 0 ? -2 : c);
+	while (str[i])
+		i++;
+	return (i);
 }
 
 /**
- * multiply - multiply 2 strings
- *
- * @n1: string1
- * @n1L:  length str1
- * @n2:  string 2
- * @n2L:  length str2
- * @res:  Result Array array
+ * int_verification - checks if string is composed of digits
+ * @str: string
+ * Return: Nothing
  */
-void multiply(char *n1, int n1L, char *n2, int n2L, char *res)
+void int_verification(char *str)
 {
-	int i, j, digit;
+	int i;
 
-	for (i = 0; i < n1L; i++)
+	for (i = 0; i < length(str); i++)
 	{
-		for (j = 0; j < n2L; j++)
+		if (str[i] < '0' && str[i] > '9')
 		{
-			digit = (n1[i] - '0') * (n2[j] - '0');
-			res[i + j] += digit;
-			res[i + j + 1] += res[i + j] / 10;
-			res[i + j] = (res[i + j] % 10);
+			print_error("Error\n");
+			exit(98);
 		}
 	}
 }
+
 /**
- * main - check the code
- * @argc: nb of argument
- * @argv: list of argumets(strings)
- * Return: Always 0.
+ * main - multiplies two numbers
+ * @argc: arguments count
+ * @argv: arguments array
+ * Return: Always 0
  */
 int main(int argc, char *argv[])
 {
-
-	char *arg1 = argv[1], *arg2 = argv[2];
-	int n1L, n2L, i;
-	char *n1, *n2, *res;
+	char *str;
+	int a_length, b_length, non_zero = 0;
+	int i, j, k, x, *result;
 
 	if (argc != 3)
 	{
-		printResult("Error", 5);
+		print_error("Error\n");
 		exit(98);
 	}
-	n1L = string_length(arg1);
-	n2L = string_length(arg2);
-	if (n1L == -1 || n2L == -1)
+	int_verification(argv[1]);
+	int_verification(argv[2]);
+	a_length = length(argv[1]);
+	b_length = length(argv[2]);
+	result = malloc(sizeof(int) * (a_length + b_length));
+	for (i = a_length - 1; i >= 0; i--)
 	{
-		printResult("Error", 5);
-		exit(98);
+		k = a_length - 1 - i;
+		x = 0;
+		for (j = b_length - 1; j >= 0; j--)
+		{
+			result[k] += (argv[1][i] - '0') * (argv[2][j] - '0') + x;
+			x = result[k] / 10;
+			result[k] = result[k] % 10;
+			k++;
+		}
+		if (x)
+			result[k++] = x;
+		if (result[k - 1])
+			non_zero = max(non_zero, k - 1);
 	}
-	if ((n1L == -2 || n2L == -2))
-	{
-		printResult("0", 1);
-		return (0);
-	}
-	n1 = malloc(sizeof(int) * n1L);
-	n2 = malloc(sizeof(int) * n2L);
-	res = malloc(sizeof(int) * (n1L + n2L));
-	for (i = 0; i < n1L; i++)
-		n1[i] = arg1[i];
-	for (i = 0; i < n2L; i++)
-		n2[i] = arg2[i];
-	reverse(n1, n1L);
-	reverse(n2, n2L);
-	for (i = 0; i < (n1L + n2L); i++)
-		res[i] = 0;
-	multiply(n1, n1L, n2, n2L, res);
-	reverse(res, n1L + n2L);
-	printResult(res, n1L + n2L);
-	free(n1);
-	free(n2);
-	free(res);
+	str = malloc(sizeof(char) * 10000);
+	for (i = non_zero; i >= 0; i--)
+		str[non_zero - i] = result[i] + '0';
+	str[non_zero + 1] = '\0';
+	free(result);
+	printf("%s\n", str);
 	return (0);
 }
