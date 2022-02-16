@@ -26,15 +26,11 @@ void radix_sort(int *array, size_t size)
 			break;
 		for (i = 0; i < 10; ++i)
 			digitCount[i] = 0;
-		print_array(digitCount, 10);
 		for (i = 0; i < arraySize; i++)
 			digitCount[array[i] / digitPosition % 10]++;
-		printf("\n");
-		print_array(digitCount, 10);
 
 		for (i = 1; i < 10; i++)
 			digitCount[i] += digitCount[i - 1];
-		print_array(digitCount, 10);
 
 		for (i = arraySize - 1; i >= 0; i--)
 		{
