@@ -1,5 +1,10 @@
 #include "sort.h"
 
+/**
+ * radix_sort - radis sort
+ * @array: array
+ * @size: size of array
+ */
 void radix_sort(int *array, size_t size)
 {
 
@@ -11,8 +16,7 @@ void radix_sort(int *array, size_t size)
 			maxVal = array[i];
 	}
 
-	/* maxVal: this variable decide the while-loop count
-		   if maxVal is 3 digits, then we loop through 3 times */
+	/* if maxVal is 3 digits, then we loop through 3 times */
 	while (maxVal / digitPosition > 0)
 	{
 		/* reset counter */
@@ -25,13 +29,11 @@ void radix_sort(int *array, size_t size)
 		/* accumulated count */
 		for (i = 1; i < 10; i++)
 			digitCount[i] += digitCount[i - 1];
-		// print_array(digitCount, 10);
 
 		/* To keep the order, start from back side */
 		for (i = arraySize - 1; i >= 0; i--)
 		{
 			bucket[--digitCount[array[i] / digitPosition % 10]] = array[i];
-			// printf(" digitCount[%d] =  %d , array[%d] = %d  \n", array[i] / digitPosition % 10, digitCount[array[i] / digitPosition % 10], i, array[i]);
 		}
 
 		/* rearrange the original array using elements in the bucket */
