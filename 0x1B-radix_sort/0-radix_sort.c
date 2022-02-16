@@ -11,7 +11,7 @@ void radix_sort(int *array, size_t size)
 	int i, *result, maxVal = 0, digitPosition = 1, arraySize = size;
 	int *digitCount;
 
-	if (size == 1)
+	if (size <= 1)
 		return;
 	result = malloc((sizeof(int) * arraySize));
 	if (result == NULL)
