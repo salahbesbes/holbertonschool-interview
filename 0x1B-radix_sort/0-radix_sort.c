@@ -11,7 +11,7 @@ void radix_sort(int *array, size_t size)
 	int i, *result, maxVal = 0, digitPosition = 1, arraySize = size;
 	int *digitCount;
 
-	result = malloc((sizeof(int) * arraySize) + 1);
+	result = malloc((sizeof(int) * arraySize));
 	if (result == NULL)
 		return;
 	for (i = 0; i < arraySize; i++)
@@ -21,15 +21,21 @@ void radix_sort(int *array, size_t size)
 	}
 	while (maxVal / digitPosition > 0)
 	{
-		digitCount = malloc((sizeof(int) * 10));
+		digitCount = malloc((sizeof(int) * 100));
 		if (digitCount == NULL)
 			break;
 		for (i = 0; i < 10; ++i)
 			digitCount[i] = 0;
+		print_array(digitCount, 10);
 		for (i = 0; i < arraySize; i++)
 			digitCount[array[i] / digitPosition % 10]++;
+		printf("\n");
+		print_array(digitCount, 10);
+
 		for (i = 1; i < 10; i++)
 			digitCount[i] += digitCount[i - 1];
+		print_array(digitCount, 10);
+
 		for (i = arraySize - 1; i >= 0; i--)
 		{
 			result[--digitCount[array[i] / digitPosition % 10]] = array[i];
