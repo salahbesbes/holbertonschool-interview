@@ -99,7 +99,7 @@ def island_perimeter(grid):
     allIselandPerimetre = 0
     for x in range(rows):
         for y in range(columns):
-            node: Node = graphGrid[x][y]
+            node = graphGrid[x][y]
             if node.isVisited is False and node.isLand is True:
                 allIselandPerimetre += calculatePerimetre(
                     node, iselandPerimetre)
