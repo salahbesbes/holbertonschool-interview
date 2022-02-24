@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    modules
-"""
+""" modules """
 
 
 class Node:
@@ -9,7 +7,8 @@ class Node:
         Node is a struct that encapsulate some data specific to the node
     """
 
-    def __init__(self, isLand, x, y) -> None:
+    def __init__(self, isLand, x, y):
+        """ init class """
         self.isLand = isLand
         self.neighbours = []
         self.isVisited = False
