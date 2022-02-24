@@ -5,7 +5,7 @@
 
 
 class Node:
-    """ 
+    """
         Node is a struct that encapsulate some data specific to the node
     """
 
@@ -66,7 +66,7 @@ def createGraphGrid(grid):
 
 
 def calculatePerimetre(node: Node, perimetre: int):
-    """ each neighbour in node that is a land we subtruct 
+    """ each neighbour in node that is a land we subtruct
         1 from the node max perimetre wich is 4, if all neighbour
         are lands the node perimetre is 0
     """
@@ -88,7 +88,7 @@ def calculatePerimetre(node: Node, perimetre: int):
 
 def island_perimeter(grid):
     """ search for iselands and calculate their parametre
-        return the sum of all iseland in the map 
+        return the sum of all iseland in the map
     """
     graphGrid = createNodesForTheGraph(grid)
     graphGrid = createGraphGrid(graphGrid)
