@@ -43,7 +43,7 @@ def createGraphGrid(grid):
     counter = 0
     for x in range(rows):
         for y in range(columns):
-            currentNode: Node = grid[x][y]
+            currentNode = grid[x][y]
             if x == 0 or x == rows-1 or y == 0 or y == columns-1:
                 currentNode.inEdge = True
             if x > 0:
@@ -64,7 +64,7 @@ def createGraphGrid(grid):
     return grid
 
 
-def calculatePerimetre(node: Node, perimetre: int):
+def calculatePerimetre(node, perimetre):
     """ each neighbour in node that is a land we subtruct
         1 from the node max perimetre wich is 4, if all neighbour
         are lands the node perimetre is 0
