@@ -40,6 +40,11 @@ int main(void)
 	binary_tree_t *root;
 	int avl;
 
+	root = binary_tree_node(NULL, 98);
+	binary_tree_print(root);
+	avl = binary_tree_is_avl(root);
+	printf("Is %d avl: %d\n", root->n, avl);
+
 	root = basic_tree();
 
 	binary_tree_print(root);

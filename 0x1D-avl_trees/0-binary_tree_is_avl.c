@@ -24,37 +24,6 @@ int height(const binary_tree_t *N)
 		return (0);
 	return (1 + max(height(N->left), height(N->right)));
 }
-/**
- * rightHeight - calculate the length of the right side of the root
- *
- * @N: root node
- * Return: int
- */
-int rightHeight(const binary_tree_t *N)
-{
-	int right;
-
-	if (N == NULL)
-		return (0);
-	right = height(N->right);
-	return (1 + right);
-}
-
-/**
- * leftHeight - calculate length of the left side of the root node
- *
- * @N: root node
- * Return: int
- */
-int leftHeight(const binary_tree_t *N)
-{
-	int left;
-
-	if (N == NULL)
-		return (0);
-	left = 1 + height(N->left);
-	return (left);
-}
 
 /**
  * isBST - check if the tree is bst
@@ -88,20 +57,19 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	int left, right;
 
 	if (tree == NULL)
+		return (0);
+
+	if (!isBST(tree, INT_MIN, INT_MAX))
+		return (0);
+
+	left = height(tree->left);
+	right = height(tree->right);
+
+	if (abs(right - left) > 1)
+		return (0);
+
+	if (!(tree->left) || !(tree->right))
 		return (1);
-	if (!(tree->left) && !(tree->right))
-		return (1);
-	if (isBST(tree, INT_MIN, INT_MAX))
-	{
-		left = height(tree->left);
-		right = height(tree->right);
-		if (abs(right - left) <= 1)
-		{
-			if (binary_tree_is_avl(tree->left) && binary_tree_is_avl(tree->right))
-			{
-				return (1);
-			}
-		}
-	}
-	return (0);
+	else
+		return (binary_tree_is_avl(tree->left) && binary_tree_is_avl(tree->right));
 }
