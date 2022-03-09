@@ -10,7 +10,7 @@ int main(void)
 {
 	int r;
 
-	r = wildcmp("main-main-main.c", "ma*in.c");
+	r = wildcmp("main-main.c", "ma*in.c");
 	printf("%d\n", r);
 	return (0);
 }

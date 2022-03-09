@@ -37,7 +37,7 @@ int searchChar(char *string, char ch, int lastIndex)
 		tmp = searchChar(string + 1, ch, lastIndex);
 		if (checkCharExist(string + 1, ch))
 		{
-			return (tmp + lastIndex - 1);
+			return (tmp + 1);
 		}
 		return (lastIndex);
 	}
