@@ -77,6 +77,8 @@ int wildcmp(char *s1, char *s2)
 
 	int indx = 0, i = 0;
 
+	if (s2 == NULL || s1 == NULL)
+		return (0);
 	if (*s2 == '*')
 	{
 		indx = ignoringStarts(s2);
