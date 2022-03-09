@@ -37,7 +37,7 @@ int searchChar(char *string, char ch, int lastIndex)
 		tmp = searchChar(string + 1, ch, lastIndex);
 		if (checkCharExist(string + 1, ch))
 		{
-			return (tmp - lastIndex + 1);
+			return (tmp + lastIndex - 1);
 		}
 		return (lastIndex);
 	}
@@ -86,6 +86,7 @@ int wildcmp(char *s1, char *s2)
 
 		i = searchChar(s1, *s2, 0);
 		s1 = s1 + i;
+
 		wildcmp(s1, s2);
 	}
 
