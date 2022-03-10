@@ -87,7 +87,7 @@ int wildcmp(char *s1, char *s2)
 		i = searchChar(s1, *s2, 0);
 		s1 = s1 + i;
 
-		wildcmp(s1, s2);
+		return (wildcmp(s1, s2));
 	}
 
 	if (*s1 == '\0' && *s2 == '\0')
