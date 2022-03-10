@@ -75,7 +75,6 @@ int wildcmp(char *s1, char *s2)
 
 	int indx = 0, i = 0;
 
-	// printf("ori s1= %s , ori s2= %s\n", s1, s2);
 	if (s2 == NULL || s1 == NULL)
 		return (0);
 	if (*s1 == '\0' && *s2 == '\0')
@@ -90,7 +89,6 @@ int wildcmp(char *s1, char *s2)
 		i = searchChar(s1, *s2, 0);
 		s1 = s1 + i;
 
-		// printf("s1= %s , s2= %s\n", s1, s2);
 		return (wildcmp(s1, s2));
 	}
 	else
