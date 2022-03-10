@@ -34,5 +34,7 @@ int main(void)
 	printf("%d\n", r);
 	r = wildcmp("abc", "*b");
 	printf("%d\n", r);
+	// r = wildcmp("9999999-888", "*-*");
+	// printf("%d\n", r);
 	return (0);
 }
