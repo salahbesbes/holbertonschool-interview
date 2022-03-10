@@ -34,11 +34,9 @@ int searchChar(char *string, char ch, int lastIndex)
 		return (lastIndex);
 	if (*string == ch)
 	{
-		tmp = searchChar(string + 1, ch, lastIndex);
+		tmp = searchChar(string + 1, ch, lastIndex + 1);
 		if (checkCharExist(string + 1, ch))
-		{
-			return (tmp + 1);
-		}
+			return (tmp);
 		return (lastIndex);
 	}
 	else if (*string != ch)
@@ -77,9 +75,14 @@ int wildcmp(char *s1, char *s2)
 
 	int indx = 0, i = 0;
 
+	// printf("ori s1= %s , ori s2= %s\n", s1, s2);
 	if (s2 == NULL || s1 == NULL)
 		return (0);
-	if (*s2 == '*')
+	if (*s1 == '\0' && *s2 == '\0')
+		return (1);
+	if (*s1 == *s2)
+		return (wildcmp(s1 + 1, s2 + 1));
+	else if (*s2 == '*')
 	{
 		indx = ignoringStarts(s2);
 		s2 = s2 + indx;
@@ -87,13 +90,9 @@ int wildcmp(char *s1, char *s2)
 		i = searchChar(s1, *s2, 0);
 		s1 = s1 + i;
 
+		// printf("s1= %s , s2= %s\n", s1, s2);
 		return (wildcmp(s1, s2));
 	}
-
-	if (*s1 == '\0' && *s2 == '\0')
-		return (1);
-	else if (*s1 == *s2)
-		return (wildcmp(s1 + 1, s2 + 1));
 	else
 		return (0);
 }
