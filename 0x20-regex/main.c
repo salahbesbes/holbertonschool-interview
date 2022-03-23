@@ -63,5 +63,8 @@ int main(void)
 	TEST_MATCH("!H@o#l$b%e^r&t(o)n_", "!.@.#.$.%.^.&.(.)._");
 	printf("expected (1) \n");
 
+	TEST_MATCH("salah", "..la.");
+	printf("expected (0) \n");
+
 	return (EXIT_SUCCESS);
 }
