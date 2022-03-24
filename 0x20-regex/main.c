@@ -19,6 +19,8 @@
  */
 int main(void)
 {
+	TEST_MATCH("Holberton", "*o");
+	printf("expected (0) \n");
 	TEST_MATCH("Holberton", "holberton");
 	printf("expected (0) \n");
 
@@ -45,16 +47,16 @@ int main(void)
 	TEST_MATCH("Julien", ".*");
 	printf("expected (1) \n");
 
-	TEST_MATCH("Holberton", "Z*H.*"); //
+	TEST_MATCH("Holberton", "*H.*"); //
 	printf("expected (1) \n");
 
-	TEST_MATCH("Holberton", "Z*H.*olberton"); //
+	TEST_MATCH("Holberton", "*H.*olberton"); //
 	printf("expected (1) \n");
 
-	TEST_MATCH("Holberton", "Z*H.*o."); //
+	TEST_MATCH("Holberton", "*H.*o."); //
 	printf("expected (1) \n");
 
-	TEST_MATCH("Holberton", "Z*H.*o");
+	TEST_MATCH("Holberton", "Z*H.*o"); ///
 	printf("expected (0) \n");
 
 	TEST_MATCH("Holberton", ".olberton");
@@ -64,7 +66,7 @@ int main(void)
 	printf("expected (1) \n");
 
 	TEST_MATCH("salah", "..la.");
-	printf("expected (0) \n");
+	printf("expected (1) \n");
 
 	return (EXIT_SUCCESS);
 }
