@@ -105,7 +105,7 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	char *currentSubString, *substring;
 	Dict **wordCount, **secondCount;
 
-	indices = calloc(0, sizeof(int));
+	indices = malloc(sizeof(int));
 	if (s == NULL || *s == '\0' || words == NULL)
 		return (indices);
 	wordCount = malloc(nb_words * sizeof(Dict));
@@ -130,8 +130,9 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 		}
 		if (CheckArraysAreEqual(wordCount, secondCount, nb_words))
 		{
-			indices[*n] = i;
 			(*n)++;
+			indices = realloc(indices, sizeof(int) * (*n));
+			indices[*n - 1] = i;
 		}
 		freeArry(secondCount, nb_words);
 		free(currentSubString);
