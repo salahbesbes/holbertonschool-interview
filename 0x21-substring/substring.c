@@ -1,10 +1,30 @@
 #include "substring.h"
 
 /**
- * freeArry - free aray from dics
+ * compaiarString- compaire 2strings
  *
- * @arr: array of Dict
- * @len: length
+ * @s1: first str
+ * @s2: second str
+ * Return: 1 if same else 0
+ */
+int compaiarString(char *s1, char const *s2)
+{
+	int i, len;
+
+	for (len = 0; s1[len]; len++)
+		;
+	for (i = 0; i < len; i++)
+	{
+		if (s1[i] != s2[i])
+			return (0);
+	}
+	return (1);
+}
+/**
+ * freeArry - free Array
+ *
+ * @arr: array of strigns
+ * @len: length of array
  */
 void freeArry(Dict **arr, int len)
 {
@@ -17,33 +37,44 @@ void freeArry(Dict **arr, int len)
 	}
 }
 /**
+ * stringExistInArray - check if dic exis in the array
+ *
+ * @ar2: array of strigns
+ * @ar1: array of strigns
+ * @pos: index of the string in the array
+ * @len: length of array
+ * Return: true or false
+ */
+int stringExistInArray(Dict **ar2, Dict **ar1, int pos, int len)
+{
+	int i;
+
+	for (i = 0; i < len; i++)
+	{
+		if (compaiarString(ar2[pos]->string, ar1[i]->string))
+		{
+			if (ar2[pos]->occurence == ar1[i]->occurence)
+				return (1);
+		}
+	}
+	return (0);
+}
+/**
  * CheckArraysAreEqual - check fi the content of arrays are same
  *
  * @ar1: array of strigns
  * @ar2: array of strigns
  * @len: length of array same
- * Return: 0 or 1
+ * Return: 1 if all content of one array exist in the other oner
  */
 int CheckArraysAreEqual(Dict **ar1, Dict **ar2, int len)
 {
-	int i, j, strExistinArray;
+	int i;
 
 	for (i = 0; i < len; i++)
 	{
 
-		for (j = 0; j < len; j++)
-		{
-			strExistinArray = strcmp(ar1[j]->string,
-						 ar2[i]->string);
-			if (strExistinArray == 0)
-			{
-				if (ar1[j]->occurence != ar2[i]->occurence)
-					strExistinArray = -1;
-				break;
-			}
-		}
-
-		if (strExistinArray != 0)
+		if (!stringExistInArray(ar2, ar1, i, len))
 			return (0);
 	}
 
@@ -78,7 +109,7 @@ Dict *TryToAddToArray(Dict **arr, char *ref, int index)
 	newDict->occurence = 1;
 	for (i = 0; i < index; i++)
 	{
-		if (strcmp(arr[i]->string, ref) == 0)
+		if (compaiarString(arr[i]->string, ref))
 		{
 			newDict->occurence++;
 			arr[i]->occurence++;
@@ -98,7 +129,7 @@ Dict *TryToAddToArray(Dict **arr, char *ref, int index)
  */
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
-	int s_len, i, j, k, *indices, lengthOfFirst, lengthCombined;
+	int s_len, i, j, k, *indices, lengthOfFirst, lengthOfAlllCombined;
 	char *currentSubString, *substring;
 	Dict **wordCount, **secondCount;
 
@@ -108,20 +139,21 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	wordCount = malloc(nb_words * sizeof(Dict));
 	secondCount = malloc(nb_words * sizeof(Dict));
 	for (i = 0; i < nb_words; i++)
-		wordCount[i] = TryToAddToArray(wordCount, strdup(words[i]), i);
-	lengthOfFirst = strlen(words[0]);
-	lengthCombined = nb_words * lengthOfFirst;
-	s_len = strlen(s);
-	for (i = 0; i <= s_len - lengthCombined; i++)
 	{
-		currentSubString = getSubstring(s, i, i + lengthCombined);
+		wordCount[i] = TryToAddToArray(wordCount, strdup(words[i]), i);
+	}
+	lengthOfFirst = strlen(words[0]);
+	lengthOfAlllCombined = nb_words * lengthOfFirst;
+	s_len = strlen(s);
+	for (i = 0; i <= s_len - lengthOfAlllCombined; i++)
+	{
+		currentSubString = getSubstring(s, i, i + lengthOfAlllCombined);
 		j = 0;
 		for (k = 0; k < nb_words; k++)
 		{
-			substring = getSubstring(currentSubString, j,
-						 j + lengthOfFirst);
-			secondCount[k] = TryToAddToArray(secondCount,
-							 substring, k);
+			substring = getSubstring(currentSubString, j, j + lengthOfFirst);
+
+			secondCount[k] = TryToAddToArray(secondCount, substring, k);
 			j += lengthOfFirst;
 		}
 		if (CheckArraysAreEqual(wordCount, secondCount, nb_words))
@@ -133,7 +165,6 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 		freeArry(secondCount, nb_words);
 		free(currentSubString);
 	}
-
 	freeArry(wordCount, nb_words);
 	free(wordCount);
 	free(secondCount);
