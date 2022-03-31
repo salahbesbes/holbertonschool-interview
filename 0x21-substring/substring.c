@@ -1,26 +1,6 @@
 #include "substring.h"
 
 /**
- * compaiarString- compaire 2strings
- *
- * @s1: first str
- * @s2: second str
- * Return: 1 if same else 0
- */
-int compaiarString(char *s1, char const *s2)
-{
-	int i, len;
-
-	for (len = 0; s1[len]; len++)
-		;
-	for (i = 0; i < len; i++)
-	{
-		if (s1[i] != s2[i])
-			return (0);
-	}
-	return (1);
-}
-/**
  * freeArry - free Array
  *
  * @arr: array of strigns
@@ -37,29 +17,6 @@ void freeArry(Dict **arr, int len)
 	}
 }
 /**
- * stringExistInArray - check if dic exis in the array
- *
- * @ar2: array of strigns
- * @ar1: array of strigns
- * @pos: index of the string in the array
- * @len: length of array
- * Return: true or false
- */
-int stringExistInArray(Dict **ar2, Dict **ar1, int pos, int len)
-{
-	int i;
-
-	for (i = 0; i < len; i++)
-	{
-		if (compaiarString(ar2[pos]->string, ar1[i]->string))
-		{
-			if (ar2[pos]->occurence == ar1[i]->occurence)
-				return (1);
-		}
-	}
-	return (0);
-}
-/**
  * CheckArraysAreEqual - check fi the content of arrays are same
  *
  * @ar1: array of strigns
@@ -69,15 +26,29 @@ int stringExistInArray(Dict **ar2, Dict **ar1, int pos, int len)
  */
 int CheckArraysAreEqual(Dict **ar1, Dict **ar2, int len)
 {
-	int i;
+	int i, j, dictExist;
 
 	for (i = 0; i < len; i++)
 	{
 
-		if (!stringExistInArray(ar2, ar1, i, len))
+		for (j = 0; j < len; j++)
+		{
+			dictExist = strcmp(ar1[i]->string, ar2[j]->string);
+
+			if (dictExist == 0)
+			{
+				if (ar1[i]->occurence == ar2[j]->occurence)
+				{
+					break;
+				}
+				dictExist = -1;
+			}
+			else
+				dictExist = -1;
+		}
+		if (dictExist == -1)
 			return (0);
 	}
-
 	return (1);
 }
 /**
@@ -109,7 +80,7 @@ Dict *TryToAddToArray(Dict **arr, char *ref, int index)
 	newDict->occurence = 1;
 	for (i = 0; i < index; i++)
 	{
-		if (compaiarString(arr[i]->string, ref))
+		if (strcmp(arr[i]->string, ref) == 0)
 		{
 			newDict->occurence++;
 			arr[i]->occurence++;
