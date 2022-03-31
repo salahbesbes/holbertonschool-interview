@@ -5,7 +5,6 @@
  *
  * @s1: first str
  * @s2: second str
- * @len: str1 and 2 are leangth equal
  * Return: 1 if same else 0
  */
 int compaiarString(char *s1, char const *s2)
@@ -38,7 +37,15 @@ void freeArry(Dict **arr, int len)
 		free(arr[i]);
 	}
 }
-
+/**
+ * stringExistInArray - check if dic exis in the array
+ *
+ * @ar2: array of strigns
+ * @ar1: array of strigns
+ * @pos: index of the string in the array
+ * @len: length of array
+ * Return: true or false
+ */
 int stringExistInArray(Dict **ar2, Dict **ar1, int pos, int len)
 {
 	int i;
@@ -72,7 +79,6 @@ int CheckArraysAreEqual(Dict **ar1, Dict **ar2, int len)
 			return (0);
 	}
 
-	printf("\v");
 	return (1);
 }
 /**
@@ -97,10 +103,10 @@ char *getSubstring(char const *s, int i, int limit)
 Dict *TryToAddToArray(Dict **arr, char const *ref, int index)
 {
 	int i = 0;
+	Dict *newDict;
 
-	Dict *newDict = malloc(sizeof(Dict));
+	newDict = malloc(sizeof(Dict));
 	newDict->string = strdup(ref);
-
 	newDict->occurence = 1;
 	for (i = 0; i < index; i++)
 	{
@@ -146,8 +152,6 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 		j = 0;
 		for (k = 0; k < nb_words; k++)
 		{
-			/* Divide the current string into strings of length of */
-			/* each word in the array */
 			substring = getSubstring(currentSubString, j, j + lengthOfFirst);
 
 			secondCount[k] = TryToAddToArray(secondCount, substring, k);
