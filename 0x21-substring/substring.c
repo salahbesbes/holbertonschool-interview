@@ -54,7 +54,7 @@ int stringExistInArray(Dict **ar2, Dict **ar1, int pos, int len)
 	{
 		if (compaiarString(ar2[pos]->string, ar1[i]->string))
 		{
-			if (ar1[pos]->occurence == ar2[i]->occurence)
+			if (ar2[pos]->occurence == ar1[i]->occurence)
 				return (1);
 		}
 	}
