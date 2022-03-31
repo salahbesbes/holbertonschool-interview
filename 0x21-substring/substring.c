@@ -32,8 +32,7 @@ void freeArry(Dict **arr, int len)
 
 	for (i = 0; i < len; i++)
 	{
-		if (arr[i] != NULL)
-			free(arr[i]->string);
+		free(arr[i]->string);
 		free(arr[i]);
 	}
 }
@@ -100,13 +99,13 @@ char *getSubstring(char const *s, int i, int limit)
 	return (substring);
 }
 
-Dict *TryToAddToArray(Dict **arr, char const *ref, int index)
+Dict *TryToAddToArray(Dict **arr, char *ref, int index)
 {
 	int i = 0;
 	Dict *newDict;
 
 	newDict = malloc(sizeof(Dict));
-	newDict->string = strdup(ref);
+	newDict->string = ref;
 	newDict->occurence = 1;
 	for (i = 0; i < index; i++)
 	{
@@ -141,7 +140,7 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	secondCount = malloc(nb_words * sizeof(Dict));
 	for (i = 0; i < nb_words; i++)
 	{
-		wordCount[i] = TryToAddToArray(wordCount, words[i], i);
+		wordCount[i] = TryToAddToArray(wordCount, strdup(words[i]), i);
 	}
 	lengthOfFirst = strlen(words[0]);
 	lengthOfAlllCombined = nb_words * lengthOfFirst;
