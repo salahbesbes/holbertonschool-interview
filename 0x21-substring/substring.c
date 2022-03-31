@@ -12,8 +12,8 @@ void freeArry(Dict **arr, int len)
 
 	for (i = 0; i < len; i++)
 	{
-		if (arr[i] != NULL)
-			free(arr[i]);
+		free(arr[i]->string);
+		free(arr[i]);
 	}
 }
 /**

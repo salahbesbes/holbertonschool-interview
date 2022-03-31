@@ -33,5 +33,7 @@ int main(int ac, char const **av)
 	}
 	printf("]\n");
 
+	printf("n = %d\n", n);
+
 	return (EXIT_SUCCESS);
 }
