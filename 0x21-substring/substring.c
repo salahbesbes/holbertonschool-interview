@@ -1,11 +1,12 @@
 #include "substring.h"
+
 /**
  * freeArry - free aray from dics
  *
  * @arr: array of Dict
  * @len: length
  */
-void freeArry(char **arr, int len)
+void freeArry(Dict **arr, int len)
 {
 	int i = 0;
 
