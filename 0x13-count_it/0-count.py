@@ -1,47 +1,44 @@
 #!/usr/bin/python3
 """
-parses the title of all hot articles,
-and prints a sorted count of given
-keywords (case-insensitive, delimited by spaces.
-Javascript should count as javascript, but java should not).
+count words Reddit API Model
 """
 import requests
 
 
-def count_words(subreddit, word_list, my_dict={}, after=''):
+def count_words(subreddit, word_list, count={}, after=""):
     """
-    Results should be printed in descending order,
-    by the count, and if the count is the same for separate keywords,
-    they should then be sorted alphabetically (ascending, from A to Z).
-    Words with no matches should be skipped and not printed.
-    Words must be printed in lowercase.
+    queries the Reddit API, parses the title of all hot articles
     """
-    url = 'https://www.reddit.com/r/{}/hot.json?after={}'
-    rq = requests.get(url.
-                      format(subreddit, after),
-                      headers={'User-Agent': 'custom'},
-                      allow_redirects=False)
+    if len(count) <= 0:
+        for item in word_list:
+            count[item] = 0
 
-    if rq and rq.status_code == 200:
-        list_req = rq.json().get('data').get('children')
-        for children in list_req:
-            get_title = children.get('data').get('title')
+    if after is None:
+        word_list = [[key, value] for key, value in count.items()]
+        word_list = sorted(word_list, key=lambda x: (-x[1], x[0]))
+        for k in word_list:
+            if k[1]:
+                print("{}: {}".format(k[0].lower(), k[1]))
+        return None
+    url = "https://api.reddit.com/r/{}/hot".format(subreddit)
+    params = {'limit': 100, 'after': after}
+    headers = {'user-agent': 'my-app/0.0.1'}
+    response = requests.get(
+        url,
+        headers=headers,
+        params=params,
+        allow_redirects=False,
+    )
+
+    if response.status_code == 200:
+        after = response.json().get("data").get("after")
+        children = response.json().get("data").get("children")
+        for child in children:
+            title = child.get("data").get(
+                "title")
+            lower = [s.lower() for s in title.split(' ')]
             for word in word_list:
-                try:
-                    my_dict[word] += get_title.lower().split().count(
-                        word.lower())
-                except KeyError:
-                    my_dict[word] = get_title.lower().split().count(
-                        word.lower())
-
-        after = rq.json().get('data').get('after')
-        if (after is None):
-            for key, val in sorted(my_dict.items(),
-                                   key=lambda x: x[1],
-                                   reverse=True):
-                if (val != 0):
-                    print("{}: {}".format(key, val))
-            return
-        return count_words(subreddit, word_list, my_dict, after)
+                count[word] += lower.count(word.lower())
     else:
-        return
+        return None
+    count_words(subreddit, word_list, count, after)
