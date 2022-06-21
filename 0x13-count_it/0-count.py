@@ -1,37 +1,60 @@
 #!/usr/bin/python3
-""" Count Words in reddit's hot articles section """
-
+"""Count it problem
+"""
 import requests
-from collections import OrderedDict
 
 
-def count_words(subreddit, word_list, word_count={}, after=''):
-    """ Recursive function that queries the Reddit API """
-    if len(word_count) <= 0:
-        for word in word_list:
-            word_count[word.lower()] = 0
+def recurse(subreddit, word_list, hot_titles, after=""):
+    """Recursive function that queries the Reddit API and
+    prints a sorted count of given keywords
+    Args:
+        subreddit: string representing subreddit to search for
+        word_list: collection of keywords to search in the
+        subreddit
+        hot_titles: dictionary of number of occurrences of elements
+        in word_list that are found in the request
+        after: pagination feature of the reddit api
+    Return:
+        hot_titles or None
+    """
+    url = "https://www.reddit.com/r/{}/hot.json?after={}".format(subreddit,
+                                                                 after)
+    res = requests.get(url,
+                       headers={'User-agent': 'product'},
+                       allow_redirects=False)
 
+    if res.status_code != 200:
+        return None
     if after is None:
-        sorted_word_count = OrderedDict(word_count.items())
-        for key, value in sorted_word_count.items():
-            if value > 0:
-                print("{}: {}".format(key, value))
-        return None
+        return hot_titles
 
-    url = 'https://api.reddit.com/r/{}/hot'.format(subreddit)
-    headers = {'user-agent': 'counting-app'}
-    params = {'limit': 100, 'after': after}
-    response = requests.get(url, headers=headers,
-                            params=params, allow_redirects=False)
+    for i in res.json().get('data').get('children'):
+        title_s = i.get('data').get('title').split()
+        for word in set(word_list):
+            if word.lower() in [x.lower() for x in title_s]:
+                if hot_titles.get(word):
+                    hot_titles[word] += 1
+                else:
+                    hot_titles[word] = 1
 
-    if response.status_code == 200:
-        after = response.json().get('data').get('after')
-        children = response.json().get('data').get('children')
-        for child in children:
-            lowercase_title = child.get(
-                "data").get('title').lower().split(' ')
-            for word in word_list:
-                word_count[word] += lowercase_title.count(word)
-        count_words(subreddit, word_list, word_count, after)
-    else:
-        return None
+    after = res.json().get('data').get('after')
+    recurse(subreddit, word_list, hot_titles, after)
+    return hot_titles
+
+
+def count_words(subreddit, word_list):
+    """Calls recurse to get dictionary of ocurrences of word_list
+    and prints that dictionary sorted by values in decreasing order
+    Args:
+        subreddit: string representing subreddit to search for
+        word_list: collection of keywords to search in the
+        subreddit
+    Return:
+        each keyword with its corresponding count in order
+    """
+    hot_titles = recurse(subreddit, word_list, {})
+    if hot_titles:
+        for k, v in sorted(hot_titles.items(), key=lambda val: val[1],
+                           reverse=True):
+            if v != 0:
+                print('{}: {}'.format(k, v))
