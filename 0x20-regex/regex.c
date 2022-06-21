@@ -1,59 +1,28 @@
 #include "regex.h"
-
-int searchforChar(const char *str, char ch, int index)
-{
-	if (ch == '\0' || *str == '\0')
-		return (-1);
-	if (*str == ch)
-		return (index + 1);
-	return (searchforChar(str + 1, ch, index + 1));
-}
-
 /**
- * recheckString - checks whether a given pattern matches
- * a given string
- * @str: the given string
- * @pattern: the given pattern
- * Return: 1 if the pattern matches the string, or
- * 0 if it doesn’t
+ * regex_match - checks whether a given pattern matches a given string
+ * @str: is the string to scan
+ * @pattern: is the regular expression
+ * Return: return 1 if the pattern matches the string, or 0 if it doesn’t
  */
-int recheckString(char const *str, char const *pattern, char const *original)
-{
-	printf("str %s, pattern %s \n", str, pattern);
-	if (str == NULL || pattern == NULL)
-		return (0);
-	if (*str == '\0' && (*pattern == '\0' || *(pattern + 1) == '\0'))
-		return (1);
-	if (*pattern == '\0')
-		return (0);
-	if (*str == *pattern)
-		return (recheckString(str + 1, pattern + 1, original));
-
-	if (pattern[0] == '*')
-	{
-		if (pattern[1] == '*')
-			return (recheckString(str, pattern + 1, original));
-		if (pattern[1] == str[0])
-			return recheckString(str, pattern + 1, original);
-		if (recheckString(str + 1, pattern, original))
-			return (1);
-		else
-			return (recheckString(original, pattern, original));
-	}
-
-	if (pattern[0] == '.')
-	{
-		return (recheckString(str + 1, pattern + 1, original));
-	}
-
-	if (pattern[1] == '*')
-	{
-		return (recheckString(str, pattern + 1, original));
-	}
-
-	return (0);
-}
 int regex_match(char const *str, char const *pattern)
 {
-	return (recheckString(str, pattern, str));
+	int dot = 0;
+	int asterisk = 0;
+
+	if (!str || !pattern)
+		return (0);
+
+	dot = *str && (*str == *pattern || *pattern == '.');
+	asterisk = *(pattern + 1) == '*';
+
+	if (!*str && !asterisk)
+		return (*pattern ? 0 : 1);
+	else if (dot && asterisk)
+		return (regex_match(str + 1, pattern) || regex_match(str, pattern + 2));
+	else if (dot && !asterisk)
+		return (regex_match(str + 1, pattern + 1));
+	else if (asterisk)
+		return (regex_match(str, pattern + 2));
+	return (0);
 }
